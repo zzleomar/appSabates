@@ -37,6 +37,9 @@ $(document).ready(function(){
   $("#opcNuevoActo").click(function() {
     ajaxMain("nuevoActo");
     });
+   $("#opcUsuario").click(function() {
+    ajaxMain("usuario");
+    });
 
 
 
@@ -55,11 +58,15 @@ $(document).ready(function(){
   $('#ajaxMain').on('click', '#regresarActo', function(){
     ajaxMain("actos");
   });
+  $('#ajaxMain').on('click', '#regresarVenta', function(){
+    ajaxMain("venta");
+  });
 
 });
 
 function ajaxMain(direccion){
   url=direccion;
+  console.log(url);
     $.get(url,function(data){ 
         $('#ajaxMain').empty().html(data);
       }); 
@@ -103,6 +110,9 @@ function menu(url){
     case 'nuevoActo':
       $('#opcNuevoActo').addClass('active');
       break;
+    case 'usuario':
+      $('#opcUsuario').addClass('active');
+      break;
 
     default:
      // alert(url);
@@ -133,11 +143,14 @@ function desmarcar(url){
       $('#opcNuevaGaceta').removeClass('active');
     if(url!='nuevoActo')
       $('#opcNuevoActo').removeClass('active');
+    if(url!='usuario')
+      $('#opcUsuario').removeClass('active');
 }
 
 function ubicacion(){
   url=localStorage.getItem("url");
   desmarcar(url);
+  console.log(url);
   switch (url) {
     case 'ventas':
         $.get(url,function(data){ 
@@ -201,6 +214,14 @@ function ubicacion(){
       break;
 
     case 'nuevoActo':
+        $.get(url,function(data){ 
+            $('#ajaxMain').empty().html(data);
+          }); 
+      //Activar opción del menu
+      menu(url);
+      break;
+
+    case 'usuario':
         $.get(url,function(data){ 
             $('#ajaxMain').empty().html(data);
           }); 

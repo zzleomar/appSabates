@@ -1,0 +1,11 @@
+.TrVenta:hover{
+	background: #eee;
+	cursor: pointer;
+}
+
+#tip1{
+	background-color: #ffcc99;
+	padding: 10px;
+	display: none;
+	position: absolute;
+}

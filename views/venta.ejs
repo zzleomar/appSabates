@@ -2,3 +2,61 @@
       <li class="breadcrumb-item"><a id="opcInicio">Inicio</a></li>
       <li class="breadcrumb-item active">Venta</li>
  </ol>
+
+                
+    <div class="page-content-wrap">
+                
+                    <div class="row">
+                    
+                        <div class="col-md-12">
+                            
+                            <!-- START DATATABLE EXPORT -->
+                            <div class="panel panel-default">
+
+                                <div class="panel-heading">
+                                    <h3 class="panel-title">Taquilla de Venta</h3>
+                                </div>
+                                <div class="panel-body appViu"  id="app">
+                                    <div id="demo">
+                                                <% include componentes/ComponenteVentas.vue %>
+                                      </div>
+                                      <div is="DatosContribuyente"  class="oculto" id="contri" v-bind:datos="acto"></div>
+
+                                </div>
+                                
+                            </div>
+                            <!-- END DATATABLE EXPORT -->                            
+                        </div>
+                    </div>                    
+                              
+              </div>
+
+<script type="text/x-template" id="contribuyenteVue">
+       <% include componentes/ComponenteContribuyente.vue %>
+</script>
+
+    <script type="text/javascript">
+      var valor = 300; //valor de la unidad tributaria
+      var items = [
+          { acto: {id:"12", descripcion:"Carta de Buena Conducta"}, unidades: 12, ley:{articulo:"Articulo "+"2",numeral:"Numeral "+"3",literal:"UNICO"}},
+          { acto: {id: "21", descripcion: "Apostillado de Titulo de educación Superior"}, unidades: 32, ley:{articulo:"Articulo "+"12",numeral:"Numeral "+"1",literal:"UNICO"}},
+          { acto:{id:"1", descripcion:"Apostillado de Titulo de educación básica"}, unidades: 25, ley:{articulo:"Articulo "+"24",numeral:"Numeral "+"4",literal:"a"}},
+          { acto:{id:"54", descripcion:"Registro de una empresa mixta"}, unidades: 2, ley:{articulo:"Articulo "+"24",numeral:"Numeral "+"4",literal:"b"}},
+          { acto:{id:"2", descripcion:"Licencia de Licoreria"}, unidades: 10, ley:{articulo:"Articulo "+"14",numeral:"Numeral "+"4",literal:"UNICO"}}
+      ];
+          
+            $(document).ready(function()
+          {
+            $('#ModalActo').on('show.bs.modal', function (event) {
+                alert("ajax");
+              });
+              $('#pdf').on('click', function(){
+                  var doc = new jsPDF()
+                  doc.text('Hello world!', 10, 10)
+                  doc.save('a4.pdf')
+              //doc.save=('prueba.pdf'); console.log("hola");
+              });
+          });
+</script>
+<script type="text/javascript" src="js/vue/personales/venta.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.3.5/jspdf.debug.js"></script>     

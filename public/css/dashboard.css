@@ -331,11 +331,31 @@ ol li.active{
     margin-left: 2rem;
 }
 
-.form-row label,.form-group label{
+.form-row label,.form-group label, .form-row legend,.form-group legend{
     font-weight: 700;
 }
 
 .botonGaceta{
     margin-top: 2rem;
     margin-left: 0.3rem; 
+}
+label.btn.btn-secondary.active {
+    box-shadow: -1px -2px 3px 1px #000;  
+}
+
+.costo-timbre{
+    padding: 15px;
+    border: 1px;
+    border-style: solid;
+    border-color: red;
+    border-radius: 15px;
+    border-left: none;
+    border-top: none;
+    font-weight: 600;
+    background-color: yellow;
+}
+
+.centerHorizontal{
+    margin-bottom: auto;
+    margin-top: auto;
 }

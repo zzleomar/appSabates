@@ -53,7 +53,13 @@ const PlanCuenta = (req,res,next) => {
 	});
 }
 
+const Usuario = (req,res,next) => {
+	res.render('usuario', {
+		title: 'Lista de Productos'
+	});
+}
+
 
 module.exports={
-	index, ventas,actos,inicio,gacetas,venta,nuevaGaceta,nuevoActo,PlanCuenta
+	index, ventas,actos,inicio,gacetas,venta,nuevaGaceta,nuevoActo,PlanCuenta,Usuario
 }

@@ -13,6 +13,7 @@ router.get('/venta', IndexController.venta);
 router.get('/nuevaGaceta', IndexController.nuevaGaceta);
 router.get('/nuevoActo', IndexController.nuevoActo);
 router.get('/plan-cuenta', IndexController.PlanCuenta);
+router.get('/usuario', IndexController.Usuario);
 
 
 
