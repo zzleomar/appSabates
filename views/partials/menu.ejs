@@ -1,0 +1,126 @@
+<% var tipo="Administrador";
+    switch(tipo) {
+      case 'Administrador': %>
+          <!--  MENU DEL ADMINISTRADOR  -->
+          <ul class="nav flex-column">
+              <li class="xn-profile">
+                    <div class="profile">
+                            <div class="profile-image">
+                                <img src="/img/logo.png" alt="John Doe"/>
+                            </div>
+                            <div class="profile-data">
+                                <div class="profile-data-name"><strong>ADMINISTRADOR</strong></div>
+                                <div class="profile-data-title"><strong>Nombre del Usuario</strong></div>
+                            </div>
+                    </div>                                                                        
+                </li>
+              <li class="nav-item">
+                <a class="nav-link" id="opcInicio">
+                  <i class="fa fa-fw fa-home"></i>
+                  Inicio
+                </a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" id="opcActos">
+                  <i class="fa fa-fw fa-copy"></i>
+                  Actos
+                </a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link"  id="opcGacetas">
+                  <i class="fa fa-fw fa-th-list "></i>
+                  Gacetas
+                </a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" id="opcVenta">
+                  <i class="fa fa-fw fa-ticket"></i>
+                  Venta
+                </a>
+              </li>
+            </ul>
+
+            <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
+              <span>Mantenimiento</span>
+              <a class="d-flex align-items-center text-muted" href="#">
+                  <i class="fa fa-fw fa-cogs"></i>
+                </a>
+            </h6>
+            <ul class="nav flex-column mb-2">
+              <li class="nav-item">
+                <a class="nav-link" href="#">
+                  <i class="fa fa-fw fa-user"></i>
+                  Usuarios
+                </a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" id="opcPlanCuenta">
+                  <i class="fa fa-fw fa-bar-chart"></i>
+                  Plan de Cuentas
+                </a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#">
+                  <i class="fa fa-fw fa-bank"></i>
+                  Cuentas Bancarias
+                </a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#">
+                  <i class="fa fa-fw fa-users"></i>
+                  Contribuyentes
+                </a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" id="opcNuevoActo">
+                  <i class="fa fa-fw fa-file-text-o"></i>
+                  Nuevo Acto
+                </a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" id="opcNuevaGaceta">
+                  <i class="fa fa-fw fa-clipboard"></i>
+                  Nueva Gaceta
+                </a>
+              </li>
+            </ul>
+      <%  break;
+      case 'Vendedor':%>
+          <!--  MENU DEL VENDEDOR  -->
+          <ul class="nav flex-column">
+              <li class="xn-profile">
+                    <div class="profile">
+                            <div class="profile-image">
+                                <img src="/public/img/logo.png" alt="John Doe"/>
+                            </div>
+                            <div class="profile-data">
+                                <div class="profile-data-name"><strong>VENDEDOR</strong></div>
+                                <div class="profile-data-title"><strong>Nombre del Usuario</strong></div>
+                            </div>
+                    </div>                                                                        
+                </li>
+              <li class="nav-item">
+                <a class="nav-link active" href="#">
+                  <i class="fa fa-fw fa-home"></i>
+                  Inicio<span class="sr-only">(current)</span>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="ventas.html">
+                  <i class="fa fa-fw fa-users"></i>
+                  Contribuyentes
+                </a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#">
+                  <i class="fa fa-fw fa-money"></i>
+                  Ventas
+                </a>
+              </li>
+            </ul>
+
+       <% break;
+    }
+ %>
+
+        </nav>

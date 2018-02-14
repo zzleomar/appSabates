@@ -1,0 +1,159 @@
+<ol class="breadcrumb">
+      <li class="breadcrumb-item"><a id="opcInicio">Inicio</a></li>
+      <li class="breadcrumb-item active">Plan de Cuentas Presupuestarias</li>
+    </ol>
+          <div class="page-content-wrap">
+                          <div class="row">
+                              <div class="col-md-12">
+                                  <!-- START DATATABLE EXPORT -->
+                                  <div class="panel panel-default">
+                                      <div class="panel-heading">
+                                          <h3 class="panel-title">Cuentas Registradas</h3>
+                                          <div class="navbar dropdown pull-right"">
+                                              <button class="btn btn-danger dropdown-toggle" id="dropdownDescargar" data-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true"><i class="fa fa-bars"></i> Descargar Cuentas Presupuestarias</button>
+
+                                              <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownDescargar"> 
+                                                <a class="dropdown-item" id="pdf" href="#" onClick ="$('#customers2').tableExport({type:'pdf',escape:'false'});"><img src='/img/pdf.png' width="24"/> PDF</a>
+                                              </div>
+                                          </div>   
+                                      </div>
+                                      <div class="panel-body appViu"  id="app">
+                                          <div id="demo"> 
+                                                <% include componentes/ComponenteCuentasPresupuestarias.vue %>
+                                      </div>
+                                      
+                                  </div>
+                                  <!-- END DATATABLE EXPORT -->                            
+                              </div>
+                          </div>                    
+                    </div>
+
+ <script type="text/javascript">
+  var items =[
+            {  id:"3",
+              descripcion:"RECURSOS ",
+              ramas:[
+              {
+                id:"01", descripcion:"INGRESOS ORDINARIOS ", 
+                subramas:[
+                  {
+                    id:"03", descripcion:"Ingresos por tasas ", 
+                    especificos:[
+                      {
+                        id:"33",
+                        descripcion:"Estampillas fiscales ",
+                        subespecificos:[
+                        {
+                          id:"00",
+                          descripcion:""
+                        },
+                        {
+                          id:"01",
+                          descripcion:"prueba "
+                        }]
+                      },
+                      {
+                        id:"34",
+                        descripcion:"Papel sellado ",
+                        subespecificos:[
+                        {
+                          id:"00",
+                          descripcion:""
+                        }]     
+                      }]
+                    },
+                    {
+                      id:"10", descripcion:"Ingresos de la propiedad ",
+                      especificos:[
+                      {
+                        id:"01",
+                        descripcion:"Intereses por préstamos concedidos al sector privado ",
+                        subespecificos:[
+                        {
+                          id:"99",
+                          descripcion:"Expendio de licohores "
+                        }]
+                      }] 
+
+                    }
+                ]},
+                {
+                id:"02", descripcion:"INGRESOS EXTRAORDINARIOS ", 
+                  subramas:[{
+                      id:"01", descripcion:"Endeudamiento público interno ",
+                      especificos:[
+                      {
+                        id:"00",
+                        descripcion:"",
+                        subespecificos:[
+                        {
+                          id:"00",
+                          descripcion:""
+                        }]
+                      }] 
+                  }]
+                }]
+              }];
+              console.log(items);
+          for (var i in items) {
+            for (var j in items[i].ramas) {
+
+              for (var h in items[i].ramas[j].subramas) {
+
+                if(items[i].ramas[j].subramas[h].especificos){
+                  for (var k in items[i].ramas[j].subramas[h].especificos) {
+
+                    if(items[i].ramas[j].subramas[h].especificos[k].subespecificos){
+                      for (var l in items[i].ramas[j].subramas[h].especificos[k].subespecificos) {
+                        console.log(items[i].descripcion+" "+items[i].ramas[j].descripcion+" "+items[i].ramas[j].subramas[h].descripcion+" "+items[i].ramas[j].subramas[h].especificos[k].descripcion+" "+items[i].ramas[j].subramas[h].especificos[k].subespecificos[l].descripcion);
+                      }
+                    }
+                    else{
+                      console.log(items[i].descripcion+" "+items[i].ramas[j].descripcion+" "+items[i].ramas[j].subramas[h].descripcion+" "+items[i].ramas[j].subramas[h].especificos[k].descripcion);
+                    }
+                    
+                  }
+                }
+                else{
+                   console.log(items[i].descripcion+" "+items[i].ramas[j].descripcion+" "+items[i].ramas[j].subramas[h].descripcion);
+                }
+              }
+            }
+          }
+          var app = new Vue({
+              el: '#app',
+                data () {
+                  return {
+                    items: items,
+                    fields: [
+                      { key: 'gaceta', label: 'Gacetas', sortable: true },
+                      { key: 'acto', label: 'Acto', sortable: true, 'class': 'text-center' },
+                      { key: 'unidades', label: 'Unidades Tributarias', sortable: true }
+                    ],
+                    currentPage: 1,
+                    perPage: 5,
+                    totalRows: items.length,
+                    pageOptions: [ 5, 10, 15 ],
+                    sortBy: null,
+                    sortDesc: false,
+                    filter: null,
+                    modalInfo: { title: '', content: '' }
+                  }
+                }
+            });
+        
+ </script>
+ <script type="text/javascript">
+           $(document).ready(function()
+            {
+                $('#pdf').on('click', function(){
+                    var doc = new jsPDF()
+                    doc.text('Hello world!', 10, 10)
+                    doc.save('a4.pdf')
+                //doc.save=('prueba.pdf'); console.log("hola");
+                });
+
+            });
+
+         </script>
+         

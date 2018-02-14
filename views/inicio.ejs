@@ -1,0 +1,125 @@
+  <ol class="breadcrumb">
+      <li class="breadcrumb-item active">Inicio</li>
+    </ol>
+          <div class="page-content-wrap">
+                          <div class="row">
+                              <div class="col-md-12">
+                                  <!-- START DATATABLE EXPORT -->
+                                  <div class="panel panel-default">
+                                      <div class="panel-heading">
+                                          <h3 class="panel-title">Ventas Registradas</h3>
+                                          <div class="navbar dropdown pull-right"">
+                                              <button class="btn btn-danger dropdown-toggle" id="dropdownDescargar" data-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true"><i class="fa fa-bars"></i> Descargar Ventas</button>
+
+                                              <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownDescargar"> 
+                                                <a class="dropdown-item" id="pdf" href="#" onClick ="$('#customers2').tableExport({type:'pdf',escape:'false'});"><img src='/img/pdf.png' width="24"/> PDF</a>
+                                              </div>
+                                          </div>   
+                                      </div>
+                                      <div class="panel-body appViu"  id="app">
+                                          <div id="demo"> 
+                                                <% include componentes/ComponenteTableVentas.vue %>
+                                      </div>
+                                      
+                                  </div>
+                                  <!-- END DATATABLE EXPORT -->                            
+                              </div>
+                          </div>                    
+                    </div>
+                    <div class="row">
+                    <div class="col-12 col-lg-6">
+                     <canvas class="my-4 chartjs-render-monitor" id="myChart1"></canvas></div>
+                    <div class="col-12 col-lg-6">
+                       <canvas class="my-4 chartjs-render-monitor" id="myChart2"></canvas>
+                    </div>
+                  </div>
+    <script src="/js/jquery-3.3.1.min.js"></script>
+    <script src="/js/vue/dist/vue.min.js"></script>
+<script src="/js/bootstrap-vue.js"></script> 
+<script src="/js/Chart.min.js"></script> 
+         <script type="text/javascript">
+          var items = [
+              { nombres: {nombre: "Tiger", apellidos:"Nixon"}, acto:{id:"2", descripcion:"System Architect"}, unidades: 12, fecha: "2011/04/25", costo: 320.800},
+              { nombres: {nombre: "Garrett", apellidos:"Winters"}, acto:{id:"31", descripcion:"Baccountant"}, unidades: 8, fecha: "2011/07/25", costo: 170.750},
+              { nombres: {nombre: "Nixon", apellidos:"Winters"}, acto:{id:"1", descripcion:"Tuntant"}, unidades: 7, fecha: "2011/07/25", costo: 70.500},
+              { nombres: {nombre: "Airi", apellidos:"Satou"}, acto:{id:"4", descripcion:"Accountant"}, unidades: 18, fecha: "2008/11/28", costo: 162.700},
+              { nombres: {nombre: "Tiger", apellidos:"Nixon"}, acto:{id:"12", descripcion:"System Architect"}, unidades: 12, fecha: "2011/04/25", costo: 320.800},
+              { nombres: {nombre: "Garrett", apellidos:"Winters"}, acto:{id:"6", descripcion:"Baccountant"}, unidades: 8, fecha: "2011/07/25", costo: 170.750},
+              { nombres: {nombre: "Nixon", apellidos:"Winters"}, acto:{id:"15", descripcion:"Tuntant"}, unidades: 7, fecha: "2011/07/25", costo: 70.500},
+              { nombres: {nombre: "Airi", apellidos:"Satou"}, acto:{id:"24", descripcion:"Accountant"}, unidades: 18, fecha: "2008/11/28", costo: 162.700},
+              { nombres: {nombre: "Tiger", apellidos:"Nixon"}, acto:{id:"87", descripcion:"System Architect"}, unidades: 12, fecha: "2011/04/25", costo: 320.800},
+              { nombres: {nombre: "Garrett", apellidos:"Winters"}, acto:{id:"26", descripcion:"Baccountant"}, unidades: 8, fecha: "2011/07/25", costo: 170.750},
+              { nombres: {nombre: "Nixon", apellidos:"Winters"}, acto:{id:"8", descripcion:"Tuntant"}, unidades: 7, fecha: "2011/07/25", costo: 70.500},
+              { nombres: {nombre: "Airi", apellidos:"Satou"}, acto:{id:"19", descripcion:"Accountant"}, unidades: 18, fecha: "2008/11/28", costo: 162.700},
+              { nombres: {nombre: "Tiger", apellidos:"Nixon"}, acto:{id:"40", descripcion:"System Architect"}, unidades: 12, fecha: "2011/04/25", costo: 320.800},
+              { nombres: {nombre: "Garrett", apellidos:"Winters"}, acto:{id:"9", descripcion:"Baccountant"}, unidades: 8, fecha: "2011/07/25", costo: 170.750},
+              { nombres: {nombre: "Nixon", apellidos:"Winters"}, acto:{id:"54", descripcion:"Tuntant"}, unidades: 7, fecha: "2011/07/25", costo: 70.500},
+              { nombres: {nombre: "Airi", apellidos:"Satou"}, acto:{id:"44", descripcion:"Accountant"}, unidades: 18, fecha: "2008/11/28", costo: 162.700}
+          ];
+          //CHARTJ
+            var ctx = document.getElementById("myChart1");
+            var myChart = new Chart(ctx, {
+              type: 'line',
+              data: {
+                labels: ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"],
+                datasets: [{
+                  data: [15339, 21345, 18483, 24003, 23489, 24092, 12034],
+                  lineTension: 0,
+                  backgroundColor: 'transparent',
+                  borderColor: '#007bff',
+                  borderWidth: 4,
+                  pointBackgroundColor: '#007bff'
+                }]
+              },
+              options: {
+                scales: {
+                  yAxes: [{
+                    ticks: {
+                      beginAtZero: false
+                    }
+                  }]
+                },
+                legend: {
+                  display: false,
+                }
+              }
+            });
+
+            ctx = document.getElementById("myChart2");
+           myChart = new Chart(ctx, {
+              type: 'line',
+              data: {
+                labels: ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"],
+                datasets: [{
+                  data: [451, 422, 145, 244, 741, 99, 150],
+                  lineTension: 0,
+                  backgroundColor: 'transparent',
+                  borderColor: '#007bff',
+                  borderWidth: 4,
+                  pointBackgroundColor: '#007bff'
+                }]
+              },
+              options: {
+                scales: {
+                  yAxes: [{
+                    ticks: {
+                      beginAtZero: false
+                    }
+                  }]
+                },
+                legend: {
+                  display: false,
+                }
+              }
+            });
+           $(document).ready(function()
+            {
+                $('#pdf').on('click', function(){
+                    var doc = new jsPDF()
+                    doc.text('Hello world!', 10, 10)
+                    doc.save('a4.pdf')
+                //doc.save=('prueba.pdf'); console.log("hola");
+                });
+            });
+         </script>
+<script type="text/javascript" src="js/vue/personales/InicioAdmin.js"></script>
