@@ -56,13 +56,13 @@ var app = new Vue({
             alert(JSON.stringify(this.form));
           },
             methoLiteral(){
-              if(this.form.literal=="UNICO")
+              if(this.form.literal=="unico")
                  this.form.literal="";
             },
             methoLiteralblur(){
               alert(this.form.literal);
               if(this.form.literal=="")
-                this.form.literal="UNICO";
+                this.form.literal="unico";
             },
             publicaciones(){
               /*for(var i=0; i<this.form.selected.publicaciones.length;i++){
@@ -117,7 +117,8 @@ var app = new Vue({
             }
           },
           literalState(){
-            if(this.form.literal=="UNICO")
+            this.form.literal = this.form.literal.toLowerCase();
+            if(this.form.literal=="unico")
               return null
               return this.form.literal.length > 1 ? false : true;
           },

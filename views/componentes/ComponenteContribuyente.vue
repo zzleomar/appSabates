@@ -31,14 +31,14 @@
     <div role="group" class="col-sm-6 col-md-6 col-lg-8 col-xl-9">
         <label for="inputLive">{{ selected }}</label>
         <b-form-input id="inputLive"
-                      v-model.trim="nacionalidad.id"
+                      v-model="id"
                       type="number"
                       :state="IdState"
                       aria-describedby="inputLiveHelp inputLiveFeedback"
                       placeholder="Ingrese identificación del contribuyente"></b-form-input>
         <b-form-invalid-feedback id="inputLiveFeedback">
           <!-- This will only be shown if the preceeding input has an invalid state -->
-          Dato incorrecto, verifique la {{  nacionalidad.text }} del contribuyente
+          Dato incorrecto, verifique el {{  selected }} del contribuyente
         </b-form-invalid-feedback>
         <b-form-text id="inputLiveHelp">
           <!-- this is a form text block (formerly known as help block) -->
@@ -97,7 +97,7 @@
             Estado del pais.
           </b-form-text>
         </div>
-        <div role="group" class="col-4">
+        <div role="group" class="col-4 oculto" id="municipioC">
         <label for="inputLive" style="opacity:0">Municipio</label>
         <b-form-select v-model="municipio" :options="municipios" :state="MunicipioState"
                         aria-describedby="inputLiveHelp inputLiveFeedbackTipo">
@@ -105,13 +105,16 @@
         <b-form-invalid-feedback id="inputLiveFeedbackTipo">
             Debe Seleccionar el municipio donde se encuentra domiciliado
           </b-form-invalid-feedback>
-          <b-form-text id="inputLiveHelp">
+          <b-form-text id="inputLiveHelp" v-if="estado!=null">
             Municipio del Estado {{ estado }}
           </b-form-text>
+          <b-form-text id="inputLiveHelp" v-else>
+            Debe Seleccionar el Estado Antes del municipio
+          </b-form-text>
         </div>
-        <div role="group" class="col-4">
+        <div role="group" class="col-4 oculto" id="parroquiaC">
         <label for="inputLive" style="opacity:0">Parroquia</label>
-        <b-form-select v-model="municipio" :options="parroquias" :state="ParroquiaState"
+        <b-form-select v-model="parroquia" :options="parroquias" :state="ParroquiaState"
                         aria-describedby="inputLiveHelp inputLiveFeedbackTipo">
         </b-form-select>
         <b-form-invalid-feedback id="inputLiveFeedbackTipo">
@@ -129,7 +132,7 @@
            {{ (max-text.length) }} de {{ max }}
           </b-form-text>
     </div>
-                  <button type="button"  class="btn btn-warring btn-auxRegistrar " id="regresarVenta" style="height: 45px;">Regresar</button>
+                  <button type="button"  class="btn btn-secondary btn-auxRegistrar " id="regresarVenta" style="height: 45px;">Regresar</button>
                   <button type="button"  v-on:click="onSubmit()" class="btn btn-primary btn-auxRegistrar" style="height: 45px;">Registrar</button>
     </div>
 </div>

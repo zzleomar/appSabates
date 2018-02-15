@@ -8,8 +8,8 @@ var app = new Vue({
          text:"" 
         }],
         options: [
-          { text: 'Venezolado', value: 'Nro. Cédula'},
-          { text: 'Extrangero', value: 'Nro. Pasaporte' }
+          { text: 'Venezolano', value: 'Nro. Cédula'},
+          { text: 'Extranjero', value: 'Nro. Pasaporte' }
         ],
         estados: [],
         estado:"",

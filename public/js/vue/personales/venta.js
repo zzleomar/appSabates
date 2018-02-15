@@ -3,22 +3,36 @@
     props: ['datos'],
     data (){
     return {
-      nacionalidad:[
-      {
-       id: "",
-       text:"" 
-      }],
+      id:"",
       options: [
-        { text: 'Venezolado', value: 'Nro. Cédula'},
-        { text: 'Extrangero', value: 'Nro. Pasaporte' }
+        { text: 'Venezolano', value: 'Nro. Cédula'},
+        { text: 'Extranjero', value: 'Nro. Pasaporte' }
       ],
-      estados: [],
-      estado:"",
+      estados: [{
+        value: null, text: 'Seleccione el estado'
+      },
+      {
+        value:"Sucre",
+        text:"Sucre"
+      },
+      {
+        value:"Monagas",
+        text:"Monagas"
+      },
+      {
+        value:"Anzoateguis",
+        text:"Anzoateguis"
+      }],
+      estado:null,
       text: "",
-      municipios: [],
-      municipio:"",
-      parroquias: [],
-      parroquia:"",
+      municipios: [{
+        value: null, text: 'Seleccione el municipio'
+      }],
+      municipio:null,
+      parroquias: [{
+        value: null, text: 'Seleccione la parroquia'
+      }],
+      parroquia:null,
       nombre:"",
       apellido:"",
       max: 100,
@@ -27,21 +41,73 @@
   },
   computed: {
     IdState (){
-        return null;        
+    if(this.id == "")
+        return null;
+      return (this.id > 99999 && this.id <  99999999 ) ? true : false;       
     },
     NombreState (){
-        return null;        
+      if(this.nombre.length < 1)
+          return null;
+        return this.nombre.length >2 ? true : false;        
     },
     ApellidoState (){
-        return null;        
+        if(this.apellido.length < 1)
+          return null;
+        return this.apellido.length >2 ? true : false;        
     },
     EstadoState(){
+      if(this.estado!=null){
+        alert("AJAX MUNICIPIO js/vue/personales/venta.js");
+        this.municipios=[{
+            value: null, text: 'Seleccione el municipio'
+          },
+          {
+            value:"municipio 1",
+            text:"municipio 1"
+          },
+          {
+            value:"municipio 2",
+            text:"municipio 2"
+          },
+          {
+            value:"municipio 3",
+            text:"municipio 3"
+          }];
+        $('#municipioC').show();
+        return true;
+      }
+      else
+        $('#municipioC').hide();
       return null;
     },
     MunicipioState(){
+      if(this.municipio!=null){
+        alert("AJAX PARROQUIA js/vue/personales/venta.js");
+        this.parroquias=[{
+            value: null, text: 'Seleccione la parroquia'
+          },
+          {
+            value:"parroquia 1",
+            text:"parroquia 1"
+          },
+          {
+            value:"parroquia 2",
+            text:"parroquia 2"
+          },
+          {
+            value:"parroquia 3",
+            text:"parroquia 3"
+          }];
+        $('#parroquiaC').show();
+        return true;
+      }
+      else
+        $('#parroquiaC').hide();
       return null;
     },
     ParroquiaState(){
+      if(this.parroquia!=null)
+        return true;
       return null;
     },
     direccionState(){
@@ -83,7 +149,7 @@ var app = new Vue({
         return this.fields
           .filter(f => f.sortable)
           .map(f => { return { text: f.label, value: f.key } })
-      }
+      },
     },
     methods: {
       info (item, index, button) {
@@ -103,6 +169,8 @@ var app = new Vue({
       click(item2){
         this.acto=item2;
         $("#demo").hide();
+        $('#regresarVenta').removeClass('active');
+        $("#ajaxMain ol").append('<li class="breadcrumb-item active">Contribuyente</li>');
         $("#contri").show();
       }
     }
