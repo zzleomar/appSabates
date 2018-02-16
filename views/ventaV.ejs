@@ -18,8 +18,9 @@
                                 </div>
                                 <div class="panel-body appViu"  id="app">
                                     <div id="demo">
-                                                <% include componentes/BuscarContribuyente.vue %>
+                                                <% include componentes/ComponenteVentas.vue %>
                                       </div>
+                                      <div is="DatosContribuyente"  class="oculto" id="contri" v-bind:datos="acto"></div>
 
                                 </div>
                                 
@@ -30,8 +31,8 @@
                               
               </div>
 
-<script type="text/x-template" id="DireccionVue">
-       <% include componentes/ComponenteDireccion.vue %>
+<script type="text/x-template" id="contribuyenteVue">
+       <% include componentes/ComponenteContribuyente.vue %>
 </script>
 
     <script type="text/javascript">

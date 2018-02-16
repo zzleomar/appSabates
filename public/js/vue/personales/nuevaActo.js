@@ -63,16 +63,6 @@ var app = new Vue({
               alert(this.form.literal);
               if(this.form.literal=="")
                 this.form.literal="unico";
-            },
-            publicaciones(){
-              /*for(var i=0; i<this.form.selected.publicaciones.length;i++){
-                this.options2.push({
-                  value: this.form.selected.publicaciones[i].id,
-                  text: this.form.selected.publicaciones[i].tipo+", "+this.form.selected.publicaciones[i].descripcion
-                });
-              }
-              console.log(this.form.selected);*/
-
             }
         },
         computed:{
