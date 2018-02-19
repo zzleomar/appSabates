@@ -42,7 +42,7 @@
           <div v-else is="Contribuyente" v-bind:actos="actos" role="group" class=" form-row" v-bind:tipo="selected.tipo" v-bind:itemAux="itemAux" v-bind:contribuyente="contribuyente[0]" v-bind:identificado="id" ></div>
         </div>
         <div v-else>
-          <h6 class="text-right" style="color:#ffc107" v-if="contribuyente.length>1">Elija el contribuyente</h6>
+          <h6 class="text-right" style="color:#ffc107" v-if="contribuyente.length>1" id="msjAux">Elija el contribuyente</h6>
           <div v-for="item in contribuyente" is="Contribuyente" v-bind:actos="actos" role="group" class=" form-row" v-bind:tipo="selected.tipo" v-bind:itemAux="itemAux" v-bind:contribuyente="item" v-bind:identificado="id"></div>
           <button type="button"  v-on:click="nuevo()" class="btn btn-secondary btn-auxRegistrar" style="height: 45px;float: right;" v-if="selected.tipo=='Firma Personal'" id="nuevafirmabutton">Nueva Firma Personal</button>
         </div>

@@ -84,12 +84,6 @@
       click(item2){
         this.acto=item2;
         alert("GENERAR TIMBRE "+JSON.stringify(this.contribuyente)+JSON.stringify(this.acto));
-      },
-      regresar(){
-        $('#ActosContribuyenteID').hide(500);
-        $('.contenedorAuxcontri').show(500);
-        $('#containercontribuyente2').show(500);
-        $('#nuevafirmabutton').show(500);
       }
     }
 });
@@ -114,6 +108,7 @@
             value:"Anzoateguis",
             text:"Anzoateguis"
           }],
+          aceptado: false,
           municipios: [{
             value: null, text: 'Seleccione el municipio'
           }],
@@ -247,7 +242,8 @@
             $('#containercontribuyente2').hide(500);
             $('.contenedorAuxcontri').hide(500);
             $('#nuevafirmabutton').hide(500);
-            $('#ActosContribuyenteID').show(500);
+            $('#msjAux').hide(500);
+            this.aceptado=true;
             this.contribuyente=null;//evitar renderizado de estados, municipio y parroquia
           }
           else{
@@ -257,9 +253,11 @@
             this.itemAux=this.contribuyente;
             $('#containercontribuyente2').hide(500);
             $('.contenedorAuxcontri').hide(500);
+            $('#msjAux').hide(500);
             $('#nuevafirmabutton').hide(500);
-            $('#ActosContribuyenteID').show(500);
+            this.aceptado=true;
           }
+          
         },
         estadoCambio(){
           alert("AJAX MUNICIPIO js/vue/personales/venta.js");
@@ -334,7 +332,15 @@
             value:"Altagracia",
             text:"Altagracia"
           }];
+        },
+        regresar(){
+            this.aceptado=false;
+          $('.contenedorAuxcontri').show(500);
+          $('#containercontribuyente2').show(500);
+            $('#msjAux').show(500);
+          $('#nuevafirmabutton').show(500);
         }
+
       }
 }); 
 

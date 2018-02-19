@@ -1,17 +1,20 @@
 
  <b-container fluid>
-<div v-if="tipo=='Personal'" class="col-12">
- <h5> {{'CI: '+contribuyente.id+" "+contribuyente.apellido+" "+contribuyente.nombre}}</h5>
-</div>
-<div v-else class="col-12">
-    <div v-if="tipo=='Juridico'" class="col-12">
-    <h5>{{'Rif: J-'+contribuyente.id+" "+contribuyente.nombre}}</h5>
+<div v-if="contribuyente!=null">
+  <div v-if="tipo=='Natural'" class="col-12">
+   <h5> {{'CI: '+contribuyente.id+" "+contribuyente.apellido+" "+contribuyente.nombre}}</h5>
   </div>
   <div v-else class="col-12">
-    <div v-if="contribuyente!=null">
-      <h5> {{'Rif: P-'+contribuyente.id+" "+contribuyente.nombre}}</h5>
+      <div v-if="tipo=='Juridico'" class="col-12">
+      <h5>{{'Rif: J-'+contribuyente.id+" "+contribuyente.nombre}}</h5>
+    </div>
+    <div v-else class="col-12">
+      <div v-if="contribuyente!=null">
+        <h5> {{'Rif: P-'+contribuyente.id+" "+contribuyente.nombre}}</h5>
+      </div>
     </div>
   </div>
+  
 </div>
 <br>
 <div class="col-12"><h4>Seleccione el acto</h4></div>
@@ -71,5 +74,4 @@
       <b-col md="12" class="my-1">
         <b-pagination :total-rows="totalRows" :per-page="perPage" v-model="currentPage" class="my-0" align="right" ></b-pagination>
       </b-col>
-      <button type="button"  v-on:click="regresar()" class="btn btn-secondary btn-auxRegistrar" style="height: 45px;float: right;">Atras</button>
   </b-container>

@@ -367,3 +367,26 @@ label.btn.btn-secondary.active {
     margin-bottom: auto;
     margin-top: auto;
 }
+
+.fade-enter-active {
+  transition: all .3s ease;
+}
+.fade-leave-active {
+  transition: all .8s cubic-bezier(1.0, 0.5, 0.8, 1.0);
+}
+.fade-enter, .fade-leave-to {
+  transform: translateX(10px);
+  opacity: 0;
+}
+
+
+.fade-button-enter-active {
+  transition: all .2s ease;
+}
+.fade-button-leave-active {
+  transition: all .7s cubic-bezier(1.0, 0.5, 0.8, 1.0);
+}
+.fade-button-enter, .fade-button-leave-to {
+  transform: translateX(10px);
+  opacity: 0;
+}

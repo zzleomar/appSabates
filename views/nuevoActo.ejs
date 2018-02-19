@@ -12,7 +12,7 @@
       <div id="demo">
           <form>
             <div class="container">
-                  <h6 style="text-align: center;">Gaceta Oficial</h6><br>
+                  <h6 style="text-align: right;">Gaceta Oficial</h6>
                 <div class="form-row">
                   <div role="group" class="col-ms-10 col-md-5">
                     <label for="tipo">Gaceta:</label>
@@ -43,8 +43,14 @@
                   </div>
                   <div style="margin-right: 1rem"><small style="line-height: 10; cursor: pointer;">nueva..</small></div>
                 </div>
-                <div class="form-row">
-                  <div role="group" class="col-md-4 oculto" id="articulo">
+                <transition name="fade-button"> <button type="button" v-show="otro"  v-on:click="otroActo()" class="btn btn-outline-info btn-auxRegistrar" style="height: 45px;"><i class="fa fa-fw fa-plus"></i>Acto</button></transition><transition name="fade" mode="out-in"> 
+              <div v-show="form.selected2!=null&&descripcionActo">
+<hr>
+                
+                <h6 style="text-align: right;">Descricción en la ley de Timbre Fiscal</h6>
+                <div class="form-row" >
+                  
+                  <div role="group" class="col-md-4" id="articulo">
                       <label for="articulo">Articulo:</label>
                       <b-form-input id="articulo"
                                     v-model.trim="form.articulo"
@@ -86,10 +92,10 @@
                         El valor de este campo es 'unico' en el caso de no poseer
                       </b-form-text>
                     </div>
-                </div>
+                </div>             
                 <div class="container oculto" id="unidades">
                 <hr>
-                <h6 style="text-align: center;">Información del Acto</h6><br>
+                <h6 style="text-align: right;">Información del Acto</h6>
                   <div role="group" class="form-row col-12">
                       <label for="descripcion">Descripción del Acto :</label>
                       <b-form-input id="descripcion"
@@ -119,10 +125,38 @@
                         <b-form-text id="inputLiveHelp">
                           ingrese un número real de unidades tributarias
                         </b-form-text>
+                    </div><div class="col-ms-6 col-md-4">
+                      <b-form-group>
+                        <template slot="label">
+                          <b>Para contribuyentes:</b>
+                          <b-form-checkbox v-model="allSelected"
+                                           :indeterminate="indeterminate"
+                                           aria-describedby="flavours"
+                                           aria-controls="flavours"
+                                           @change="toggleAll"
+                           >
+                            {{ allSelected ? 'Especifico' : 'Seleccionar Todos' }}
+                           </b-form-checkbox>
+                        </template>
+                        <b-form-checkbox-group id="flavors"
+                                               stacked
+                                               v-model="selected"
+                                               name="flavs"
+                                               :options="flavours"
+                                               class="ml-4"
+                                               aria-label="Individual flavours"
+                        ></b-form-checkbox-group>
+                      </b-form-group>
                     </div>
-                  <button type="button"  v-on:click="onSubmit()" class="btn btn-primary btn-auxRegistrar" style="height: 45px;">Registrar</button>
                   </div>
-                </div>
+                     
+                  <button type="button"  v-on:click="onSubmit()" class="btn btn-primary btn-auxRegistrar" style="height: 45px;">Registrar</button>
+                </div></div> </transition>
             </div>
-      </form> 
+      </form>
+  </div>
+  <div class="container" id="actosR"  v-show="items.length!=0">
+    <% include componentes/ComponenteTableActos.vue %>
+  </div>
+</div>       
   <script type="text/javascript" src="js/vue/personales/nuevaActo.js"></script>

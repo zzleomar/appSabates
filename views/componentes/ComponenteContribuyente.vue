@@ -52,7 +52,7 @@
     </div>
       <div class="form-row">
         <div role="group" class="col-4">
-        <label for="inputLive" v-if="tipo!='Juridico'&&tipo!='Firma Personal'">Dirección De hospedaje</label>
+        <label for="inputLive" v-if="tipo!='Juridico'&&tipo!='Firma Personal'">Dirección</label>
         <label for="inputLive" v-else>Dirección De Oficina Central del Pais</label>
         <b-form-select v-model="estado" :options="estados" :state="EstadoState"
                         aria-describedby="inputLiveHelp inputLiveFeedbackTipo" @change="estadoCambio">
@@ -210,8 +210,12 @@
     <button type="button"  v-on:click="onSubmit()" class="btn btn-primary btn-auxRegistrar" style="height: 45px;" v-if="contribuyente==null">Registrar</button>
     <button type="button"  v-on:click="onSubmit()" class="btn btn-primary btn-auxRegistrar" style="height: 45px;" v-else>Aceptar</button>
 </div>
-</div><div class="oculto" id="ActosContribuyenteID">
-<div is="ActosContribuyente" role="group" class=" form-row"  v-bind:contribuyente="itemAux" v-bind:items="actos"></div>
+</div>
+<transition name="fade" mode="in-out">
+<div  v-show="aceptado">
+<div is="ActosContribuyente" role="group" class=" form-row"  v-bind:contribuyente="itemAux"  v-bind:tipo="tipo" v-bind:items="actos"></div>
+<button v-show="aceptado" type="button"  v-on:click="regresar()" class="btn btn-secondary btn-auxRegistrar" style="height: 45px;float: right;">Atras</button>  
   
 </div>
+</transition>
 </div>

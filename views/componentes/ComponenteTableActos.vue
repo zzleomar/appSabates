@@ -30,6 +30,8 @@
     <!-- Main table element -->
     <b-table hover class='text-center thead-gris t-margenTop' show-empty
              stacked="md"
+             empty-text="Actos no registrados"
+             empty-filtered-text="No encontrado"
              :items="items"
              :fields="fields"
              :current-page="currentPage"

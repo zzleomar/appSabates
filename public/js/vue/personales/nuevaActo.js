@@ -1,7 +1,26 @@
+var items2 = [];
+
+
+
 var app = new Vue({
         el: '#app',
         data (){
             return {
+              //actos
+              items: items2,
+              fields: [
+                { key: 'ley', label: 'Ley De Timbre Fiscal', sortable: true },
+                { key: 'acto', label: 'Acto', sortable: true, 'class': 'text-center' },
+                { key: 'unidades', label: 'Unidades Tributarias', sortable: true }
+              ],
+              currentPage: 1,
+              perPage: 5,
+              totalRows: items2.length,
+              pageOptions: [ 5, 10, 15 ],
+              sortBy: null,
+              sortDesc: false,
+              filter: null,
+              //formulario
               form: {
                 descripcion: '',
                 articulo: '',
@@ -9,8 +28,17 @@ var app = new Vue({
                 literal: 'UNICO',
                 unidades: "",
                 selected: null,
-                selected2: null
+                selected2: null,
               },
+              otro:false,
+              descripcionActo:true,
+              //checkbox
+              flavours: ['Natural', 'Juridico', 'Firma Personal'],
+              selected: ['Natural', 'Juridico', 'Firma Personal'],
+              allSelected: true,
+              indeterminate: false,
+
+              //gacetas prueba
               gacetas:[
                 {
                   id: "01",
@@ -51,9 +79,21 @@ var app = new Vue({
               helpArticulo: ""
         }},
         methods:{
+          otroActo(){
+            this.descripcionActo=true;
+            this.otro=!this.otro;
+            this.form.articulo= "";
+            this.form.numeral= "";
+            this.form.literal= "UNICO";
+            this.form.descripcion= "";
+            this.form.unidades= "";
+          },
           onSubmit () {
             console.log(this.form);
             alert(JSON.stringify(this.form));
+            this.items.push({ acto: {id:"12", descripcion:this.form.descripcion}, unidades: this.form.unidades, ley:{articulo:"Articulo "+this.form.articulo,numeral:"Numeral "+this.form.numeral,literal:"UNICO"}});
+            this.descripcionActo=false;
+            this.otro=true;
           },
             methoLiteral(){
               if(this.form.literal=="unico")
@@ -63,7 +103,39 @@ var app = new Vue({
               alert(this.form.literal);
               if(this.form.literal=="")
                 this.form.literal="unico";
+            },
+            toggleAll (checked) {
+              this.selected = checked ? this.flavours.slice() : []
+            },
+            info (item, index, button) {
+              this.modalInfo.title = `Row index: ${index}`
+              this.modalInfo.content = JSON.stringify(item, null, 2)
+              this.$root.$emit('bv::show::modal', 'modalInfo', button)
+            },
+            resetModal () {
+              this.modalInfo.title = ''
+              this.modalInfo.content = ''
+            },
+            onFiltered (filteredItems) {
+              // Trigger pagination to update the number of buttons/pages due to filtering
+              this.totalRows = filteredItems.length
+              this.currentPage = 1
             }
+        },
+        watch: {
+          selected (newVal, oldVal) {
+            // Handle changes in individual flavour checkboxes
+            if (newVal.length === 0) {
+              this.indeterminate = false
+              this.allSelected = false
+            } else if (newVal.length === this.flavours.length) {
+              this.indeterminate = false
+              this.allSelected = true
+            } else {
+              this.indeterminate = true
+              this.allSelected = false
+            }
+          }
         },
         computed:{
           DescState () {
@@ -84,7 +156,7 @@ var app = new Vue({
             if(this.form.articulo=="")
               return null;
             if(this.form.articulo > 0){
-              $("#numeral").show();
+              $("#numeral").show(500);
               return true;
             }
             else{
@@ -97,7 +169,7 @@ var app = new Vue({
               return null;
             if(this.form.numeral > 0){
               $("#unidades").show(500);
-              $("#literal").show();
+              $("#literal").show(500);
               return true;
             }
             else{
@@ -153,11 +225,17 @@ var app = new Vue({
                     this.helpArticulo=this.options2[i].text;
                   }
               }
-               $("#articulo").show();
+               $("#articulo").show(500);
               return true;
             }
             $("#articulo").hide(500);
-          }
+          },
+          sortOptions () {
+              // Create an options list from our fields
+              return this.fields
+                .filter(f => f.sortable)
+                .map(f => { return { text: f.label, value: f.key } })
+            }
 
         }
     });
