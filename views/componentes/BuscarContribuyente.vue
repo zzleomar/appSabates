@@ -1,3 +1,5 @@
+<div id="containercontribuyente">
+  <div id="containercontribuyente2">
 <h4>Documento del Contribuyente</h4>
   <hr>
   <div class="container">
@@ -10,7 +12,7 @@
                               v-model="selected"
                               :options="options"
                               :state="tipoState"
-                              name="tipo" />
+                              name="tipo" ></b-form-radio-group>
         </b-form-group>
 
       </div>
@@ -30,61 +32,27 @@
         </b-form-text>
     </div>
     </div></div>
-<br>
+<br></div>
+      <div class="container oculto" id="IDcontribuyente">
 
-    
-  <div class="container oculto" id="contribuyente">
-      <h6 class="text-right" style="color:rgb(255, 128, 128)" v-if="contribuyente==null">Debe registrar el contribuyente</h6>
-      <div role="group" class=" form-row" v-if="selected.tipo!='Juridico'">
-      <div role="group" class="col-6">
-        <label for="inputLive">Nombre Completo:</label>
-        <b-form-input id="inputLive"
-                      v-model.trim="nombre"
-                      type="text"
-                      :state="NombreState"
-                      aria-describedby="inputLiveHelp inputLiveFeedback"
-                      placeholder="Ingrese el nombre"></b-form-input>
-        <b-form-invalid-feedback id="inputLiveFeedback">
-          Esta Información es obligatoria
-        </b-form-invalid-feedback>
-        <b-form-text id="inputLiveHelp">
-          Nombres.
-        </b-form-text>
-    </div>
-      <div class="col-6">
-        <label style="opacity: 0;">Apellido</label>
-        <b-form-input id="inputLive"
-                      v-model.trim="apellido"
-                      type="text"
-                      :state="ApellidoState"
-                      aria-describedby="inputLiveHelp inputLiveFeedback"
-                      placeholder="Ingrese los apellidos"></b-form-input>
-        <b-form-invalid-feedback id="inputLiveFeedback">
-          Esta Información es obligatoria
-        </b-form-invalid-feedback>
-        <b-form-text id="inputLiveHelp">
-          Apellidos.
-        </b-form-text>
-      </div>
-    </div>
-    <div v-else>
-          <div role="group" class="col-12">
-          <label for="inputLive">Nombre Del la Empresa:</label>
-          <b-form-input id="inputLive"
-                        v-model.trim="nombre"
-                        type="text"
-                        :state="NombreState"
-                        aria-describedby="inputLiveHelp inputLiveFeedback"
-                        placeholder="Ingrese el nombre"></b-form-input>
-          <b-form-invalid-feedback id="inputLiveFeedback">
-            Esta Información es obligatoria
-          </b-form-invalid-feedback>
-          <b-form-text id="inputLiveHelp">
-            Nombres.
-          </b-form-text>
-      </div>      
-    </div>
     <!-- Complemento de dirección-->
-        <div is="Direccion" role="group" class=" form-row" v-bind:municipio="municipio" v-bind:parroquia="parroquia" v-bind:estado="estado" v-bind:tipo="selected.tipo"  v-bind:text="text" v-bind:contribuyente="contribuyente"></div>
+      <h6 class="text-right" style="color:rgb(255, 128, 128)" v-if="contribuyente==null||contribuyente.length<1">Debe registrar el contribuyente</h6>
+        <div v-if="(contribuyente==null)||(contribuyente!=null&&contribuyente.length==0)">
+          <div v-if="(contribuyente==null)" is="Contribuyente" v-bind:actos="actos" role="group" class=" form-row" v-bind:tipo="selected.tipo" v-bind:itemAux="itemAux" v-bind:contribuyente="contribuyente" v-bind:identificado="id"></div>
+          <div v-else is="Contribuyente" v-bind:actos="actos" role="group" class=" form-row" v-bind:tipo="selected.tipo" v-bind:itemAux="itemAux" v-bind:contribuyente="contribuyente[0]" v-bind:identificado="id" ></div>
+        </div>
+        <div v-else>
+          <h6 class="text-right" style="color:#ffc107" v-if="contribuyente.length>1">Elija el contribuyente</h6>
+          <div v-for="item in contribuyente" is="Contribuyente" v-bind:actos="actos" role="group" class=" form-row" v-bind:tipo="selected.tipo" v-bind:itemAux="itemAux" v-bind:contribuyente="item" v-bind:identificado="id"></div>
+          <button type="button"  v-on:click="nuevo()" class="btn btn-secondary btn-auxRegistrar" style="height: 45px;float: right;" v-if="selected.tipo=='Firma Personal'" id="nuevafirmabutton">Nueva Firma Personal</button>
+        </div>
   </div>
+   <div class="oculto" id="IDnuevaFirma" style="clear: both;">
+            <div is="Contribuyente" v-bind:actos="actos" role="group" class=" form-row" v-bind:tipo="selected.tipo" v-bind:itemAux="itemAux" v-bind:contribuyente="null" v-bind:identificado="id" ></div>
+          <button type="button"  v-on:click="regresar()" class="btn btn-secondary btn-auxRegistrar" id="regresarContribuyentes" style="height: 45px;float: right;" v-if="selected.tipo=='Firma Personal'">Atras</button>
+          </div>
+</div>
+
+
+
 
