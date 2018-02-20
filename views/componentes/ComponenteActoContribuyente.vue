@@ -2,17 +2,12 @@
  <b-container fluid>
 <div v-if="contribuyente!=null">
   <div v-if="tipo=='Natural'" class="col-12">
-   <h5> {{'CI: '+contribuyente.id+" "+contribuyente.apellido+" "+contribuyente.nombre}}</h5>
+    <div>Contribuyente: <strong>{{contribuyente.apellido+" "+contribuyente.nombre}}</strong></div>
+    <div>Nro. De Cédula: <strong>{{contribuyente.id}}</strong></div>
   </div>
   <div v-else class="col-12">
-      <div v-if="tipo=='Juridico'" class="col-12">
-      <h5>{{'Rif: J-'+contribuyente.id+" "+contribuyente.nombre}}</h5>
-    </div>
-    <div v-else class="col-12">
-      <div v-if="contribuyente!=null">
-        <h5> {{'Rif: P-'+contribuyente.id+" "+contribuyente.nombre}}</h5>
-      </div>
-    </div>
+        <div>Contribuyente: <strong>{{contribuyente.nombre}}</strong></div>
+        <div>Rif: <strong>{{contribuyente.id}}</strong></div>
   </div>
   
 </div>

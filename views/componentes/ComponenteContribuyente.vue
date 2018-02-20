@@ -1,7 +1,7 @@
 <div>
         <div class="contenedorAuxcontri">
   <div v-if="contribuyente==null" class="col-12">
-    <div  role="group" class=" form-row" v-if="tipo!='Juridico'&&tipo!='Firma Personal'">
+    <div  role="group" class=" form-row" v-if="tipo!='Juridico'">
       <div role="group" class="col-6">
         <label for="inputLive">Nombre Completo:</label>
         <b-form-input id="inputLive"
@@ -52,7 +52,7 @@
     </div>
       <div class="form-row">
         <div role="group" class="col-4">
-        <label for="inputLive" v-if="tipo!='Juridico'&&tipo!='Firma Personal'">Dirección</label>
+        <label for="inputLive" v-if="tipo!='Juridico'">Dirección</label>
         <label for="inputLive" v-else>Dirección De Oficina Central del Pais</label>
         <b-form-select v-model="estado" :options="estados" :state="EstadoState"
                         aria-describedby="inputLiveHelp inputLiveFeedbackTipo" @change="estadoCambio">
@@ -108,7 +108,7 @@
 <!-- SI existe el contribuyente -->
 
 <div v-else class="col-12">
-    <div  role="group" class=" form-row" v-if="tipo!='Juridico'&&tipo!='Firma Personal'">
+    <div  role="group" class=" form-row" v-if="tipo!='Juridico'">
       <div role="group" class="col-6">
         <label for="inputLive">Nombre Completo:</label>
         <b-form-input id="inputLive"
@@ -159,7 +159,7 @@
     </div>
       <div class="form-row">
         <div role="group" class="col-4">
-        <label for="inputLive" v-if="tipo!='Juridico'&&tipo!='Firma Personal'">Dirección De hospedaje</label>
+        <label for="inputLive" v-if="tipo!='Juridico'">Dirección</label>
         <label for="inputLive" v-else>Dirección De Oficina Central del Pais</label>
         <b-form-select v-model="contribuyente.estado" :options="estados" :state="EstadoState"
                         aria-describedby="inputLiveHelp inputLiveFeedbackTipo" @change="estadoCambio">
