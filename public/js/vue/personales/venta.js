@@ -1,12 +1,11 @@
 
  var auxActo=[
-    { acto: {id:"12", descripcion:"Carta de Buena Conducta"}, unidades: 12, ley:{articulo:"Articulo "+"2",numeral:"Numeral "+"3",literal:"UNICO"}},
-    { acto: {id: "21", descripcion: "Apostillado de Titulo de educación Superior"}, unidades: 32, ley:{articulo:"Articulo "+"12",numeral:"Numeral "+"1",literal:"UNICO"}},
-    { acto:{id:"1", descripcion:"Apostillado de Titulo de educación básica"}, unidades: 25, ley:{articulo:"Articulo "+"24",numeral:"Numeral "+"4",literal:"a"}},
-    { acto:{id:"54", descripcion:"Registro de una empresa mixta"}, unidades: 2, ley:{articulo:"Articulo "+"24",numeral:"Numeral "+"4",literal:"b"}},
-    { acto:{id:"2", descripcion:"Licencia de Licoreria"}, unidades: 10, ley:{articulo:"Articulo "+"14",numeral:"Numeral "+"4",literal:"UNICO"}},
-    { acto:{id:"2", descripcion:"Licencia de Licoreria"}, unidades: 10, ley:{articulo:"Articulo "+"14",numeral:"Numeral "+"4",literal:"UNICO"}}
-]; 
+          { acto: {id:"12", descripcion:"Carta de Buena Conducta"}, unidades: 12, publicacaion:"Ley de Timbre Fiscal", articulo:"Articulo "+"2",numeral:"Numeral "+"3",literal:"UNICO"},
+          { acto: {id: "21", descripcion: "Apostillado de Titulo de educación Superior"}, unidades: 32, publicacaion:"Reforma de la Ley de Timbre Fiscal", articulo:"Articulo "+"12",numeral:"Numeral "+"1",literal:"UNICO"},
+          { acto:{id:"1", descripcion:"Apostillado de Titulo de educación básica"}, unidades: 25, publicacaion:"Ley de Timbre Fiscal", articulo:"Articulo "+"24",numeral:"Numeral "+"4",literal:"a"},
+          { acto:{id:"54", descripcion:"Registro de una empresa mixta"}, unidades: 2, publicacaion:"Ley de Timbre Fiscal", articulo:"Articulo "+"24",numeral:"Numeral "+"4",literal:"b"},
+          { acto:{id:"2", descripcion:"Licencia de Licoreria"}, unidades: 10, publicacaion:"Reforma de la Ley de Timbre Fiscal", articulo:"Articulo "+"14",numeral:"Numeral "+"4",literal:"UNICO"}
+      ];
  var contribuyentes=[{
     id:"23806671",
     nombre:"Leomar Alexander",
@@ -15,10 +14,22 @@
     municipio:"Montes",
     parroquia:"Cumanacoa",
     ubicacion:"Calle la Quinta, Casa Nro. 23",
+    nacionalidad:'Venezolano',
     tipo:'Personal'
   },
   {
-    id:"7654321",
+    id:"12345678",
+    nombre:"Mikel",
+    apellido:"Xass Miuld",
+    estado:"Sucre",
+    municipio:"Sucre",
+    parroquia:"Santa Ines",
+    ubicacion:"Calle xxxx Apartamento xxx",
+    nacionalidad:'Extrangero',
+    tipo:'Personal'
+  },
+  {
+    id:"V-1234567-1",
     nombre:"Alas de Venezuela C.a",
     estado:"Sucre",
     municipio:"Sucre",
@@ -28,7 +39,7 @@
     tipo:'Juridico'
  },
  {
-    id:"12345671",
+    id:"J-1232567-1",
     nombre:"Cooperativa 1",
     estado:"Sucre",
     municipio:"Montes",
@@ -37,7 +48,7 @@
     tipo:'Juridico'
  },
  {
-    id:"12345671",
+    id:"V-1234567-1",
     nombre:"Mixta montes c.a",
     estado:"Sucre",
     municipio:"Sucre",
@@ -50,15 +61,19 @@
 
  Vue.component('ActosContribuyente',{
     template: "#ActosContribuyenteVue",
-    props: ['tipo','contribuyente','items'],
+    props: ['tipo','contribuyente','items','tipo2'],
     data (){
         return {
           items: auxActo,
           acto: null,
           fields: [
-            { key: 'acto', label: 'Acto', sortable: true, 'class': 'text-center' },
-            { key: 'unidades', label: 'Unidades Tributarias', sortable: true }
-          ],
+          { key: 'publicacaion', label: 'Publicación', sortable: true },
+          { key: 'articulo', label: 'Articulo', sortable: true },
+          { key: 'numeral', label: 'Numeral', sortable: false },
+          { key: 'literal', label: 'Literal', sortable: false },
+          { key: 'acto', label: 'Acto', sortable: true, 'class': 'text-center' },
+          { key: 'unidades', label: 'Unidades Tributarias', sortable: true }
+        ],
           currentPage: 1,
           perPage: 5,
           totalRows: items.length,
@@ -91,7 +106,7 @@
 
  Vue.component('Contribuyente',{
     template: "#ContribuyenteVue",
-    props: ['tipo','contribuyente','identificado','itemAux','actos'],
+    props: ['tipo','tipo2','contribuyente','identificado','itemAux','actos'],
     data (){
         return {
           estados: [{
@@ -355,53 +370,55 @@ var app = new Vue({
         auxnull:null,
         itemAux:null,
         selected:{tipo:'Personal', documento: 'Nacionalidad'},
-        selected2:{nacionalidad:'Venezolano', documento: 'Nro. Cédula'},
+        selected2:{tipo:'Venezolano', documento: 'Nro. Cédula'},
         tiposContribuyentes: [
           { text: 'Personal', value:{ tipo:'Personal', documento: 'Nacionalidad'}},
           { text: 'R.I.F.', value:{ tipo: 'Juridico', documento: 'Tipo de Rif'}}
         ],
         tiposDocumentos: [
-          { text: 'Venezolano', value:{ nacionalidad:'Venezolano', documento: 'Nro. Cédula'}},
-          { text: 'Extranjero', value:{ nacionalidad: 'Extranjero', documento: 'Nro. Pasaporte'}}
+          { text: 'Venezolano', value:{ tipo:'Venezolano', documento: 'Nro. Cédula'}},
+          { text: 'Extranjero', value:{ tipo: 'Extranjero', documento: 'Nro. Pasaporte'}}
         ],
         Documentos1: [
-          { text: 'Venezolano', value:{ nacionalidad:'Venezolano', documento: 'Nro. Cédula'}},
-          { text: 'Extranjero', value:{ nacionalidad: 'Extranjero', documento: 'Nro. Pasaporte'}}
+          { text: 'Venezolano', value:{ tipo:'Venezolano', documento: 'Nro. Cédula'}},
+          { text: 'Extranjero', value:{ tipo: 'Extranjero', documento: 'Nro. Pasaporte'}}
         ],
         Documentos2: [
-          { text: 'V-', value:{ tipo: 'Venezolano', documento: 'Nro. Rif Personal', text:'V-'}},
-          { text: 'E-', value:{ tipo: 'Extranjero', documento: 'Nro. Rif Personal', text:'E-'}},
+          { text: 'V-', value:{ tipo: 'R-Venezolano', documento: 'Nro. Rif Personal', text:'V-'}},
+          { text: 'E-', value:{ tipo: 'R-Extranjero', documento: 'Nro. Rif Personal', text:'E-'}},
           { text: 'P-', value:{ tipo: 'Persona Natural', documento: 'Nro. Rif Personal', text:'P-'}},
           { text: 'G-', value:{ tipo: 'Gubernamental', documento: 'Nro. Rif Gubernamental', text:'G-'}},
           { text: 'J-', value:{ tipo: 'Jurídico', documento: 'Nro. Rif Jurídico', text:'J-'}},
           { text: 'C-', value:{ tipo: 'Comunal', documento: 'Nro. Rif Del Consejo Comunal', text:'C-'}}
         ],
         Documentos3: [
-          { text: 'Venezolano V-', value:{ tipo: 'Venezolano', documento: 'Nro. Rif Personal', text:'V-'}},
-          { text: 'Extranjero E-', value:{ tipo: 'Extranjero', documento: 'Nro. Rif Personal', text:'E-'}},
-          { text: 'Persona P-', value:{ tipo: 'Persona Natural', documento: 'Nro. Rif Personal', text:'P-'}},
-          { text: 'Gubernamental G-', value:{ tipo: 'Gubernamental', documento: 'Nro. Rif Gubernamental', text:'G-'}},
-          { text: 'Jurídico J-', value:{ tipo: 'Jurídico', documento: 'Nro. Rif Jurídico', text:'J-'}},
-          { text: 'Comunal C-', value:{ tipo: 'Comunal', documento: 'Nro. Rif Del Consejo Comunal', text:'C-'}}
+          { text: 'Venezolano [V-]', value:{ tipo: 'R-Venezolano', documento: 'Nro. Rif Personal', text:'V-'}},
+          { text: 'Extranjero [E-]', value:{ tipo: 'R-Extranjero', documento: 'Nro. Rif Personal', text:'E-'}},
+          { text: 'Persona [P-]', value:{ tipo: 'Persona Natural', documento: 'Nro. Rif Personal', text:'P-'}},
+          { text: 'Gubernamental [G-]', value:{ tipo: 'Gubernamental', documento: 'Nro. Rif Gubernamental', text:'G-'}},
+          { text: 'Jurídico [J-]', value:{ tipo: 'Jurídico', documento: 'Nro. Rif Jurídico', text:'J-'}},
+          { text: 'Comunal [C-]', value:{ tipo: 'Comunal', documento: 'Nro. Rif Del Consejo Comunal', text:'C-'}}
         ],
         contribuyente:null,
-        formatoRif: /[V|E|P|G|J|C]\-([1-9]{6,8})/,
+        formatoRif: new RegExp("^([VEGPJC]{1})-([0-9]{6,8})-([0-9]{1})$"),
+        formatoRif2: new RegExp("^([VEGPJC]{1})-$"),
+        formatoCP: new RegExp("^[0-9]{6,8}$"),
+        ejem: "23806671",
         //pruebas
         contribuyentesVue:null
       }
     },
     computed: {
       IdState (){
-          if(this.id == ""){
+          if(this.id == "" || this.formatoRif2.test(this.id)){
             $("#IDcontribuyente").hide(500);
               return null;
           }
-          if(this.id.length > 5 && this.id.length <  8 && formatoRif.test(this.id) ){
+          if((this.selected.tipo!='Personal'&&this.formatoRif.test(this.id)) || (this.selected.tipo=='Personal'&&this.formatoCP.test(this.id))){
             this.contribuyente=this.buscarC(this.selected);
             $("#IDcontribuyente").hide(500);
             $("#IDcontribuyente").show(500); 
             this.ajaxActos();
-            console.log(this.actos);             
             return true;       
           }
           else{
@@ -416,11 +433,13 @@ var app = new Vue({
           else{
             if(this.selected.tipo=='Personal'){
               this.tiposDocumentos=this.Documentos1;
-              this.selected2={nacionalidad:'Venezolano', documento: 'Nro. Cédula'};
+              this.ejem="23806671";
+              this.selected2={tipo:'Venezolano', documento: 'Nro. Cédula'};
             }
             else{
-              this.tiposDocumentos=this.Documentos2;
-              this.selected2={ tipo: 'Venezolano', documento: 'Nro. Rif Personal', text:'V-'};
+              this.tiposDocumentos=this.Documentos3;
+              this.ejem="V-23806671-1";
+              this.selected2={ tipo: 'R-Venezolano', documento: 'Nro. Rif Personal', text:'V-'};
             }
           }
           this.id="";
@@ -448,8 +467,12 @@ var app = new Vue({
 
           this.contribuyentesVue=contribuyentes;
           this.contribuyentesVue = this.contribuyentesVue.filter(function (opcion) {
+                  if(this.selected.tipo=='Juridico')
                     return opcion.tipo!=selected.tipo ? false : true;
+                  else
+                    return (opcion.tipo!=selected.tipo&&opcion.nacionalidad!=selected2.tipo) ? false : true;
               });
+          console.log(this.contribuyentesVue);
           for (var i = 0; i<this.contribuyentesVue.length ; i++) {
             if(this.contribuyentesVue[i].id==this.id){
               arreglo.push(this.contribuyentesVue[i]);
@@ -470,13 +493,8 @@ var app = new Vue({
           $("#IDcontribuyente").show(500);
         },
         ajaxActos(){//para pruebas
-          this.actos=null;
-          this.actos=[];
-          for (var i = 0; i<auxActo.length ; i++) {
-            if(auxActo[i].tipo==this.selected.tipo){
-              this.actos.push(auxActo[i]);
-            }
-          }
+          alert("ajax actos");
+          this.actos=auxActo;
         },
         reset () {
           this.item = {}

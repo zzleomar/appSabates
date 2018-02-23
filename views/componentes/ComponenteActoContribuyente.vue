@@ -1,9 +1,10 @@
 
  <b-container fluid>
 <div v-if="contribuyente!=null">
-  <div v-if="tipo=='Natural'" class="col-12">
+  <div v-if="tipo=='Personal'" class="col-12">
     <div>Contribuyente: <strong>{{contribuyente.apellido+" "+contribuyente.nombre}}</strong></div>
-    <div>Nro. De Cédula: <strong>{{contribuyente.id}}</strong></div>
+    <div v-if="tipo2=='Venezolano'">Nro. De Cédula: <strong>{{contribuyente.id}}</strong></div>
+    <div v-else>Nro. De Pasaporte: <strong>{{contribuyente.id}}</strong></div>
   </div>
   <div v-else class="col-12">
         <div>Contribuyente: <strong>{{contribuyente.nombre}}</strong></div>

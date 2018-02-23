@@ -4,7 +4,10 @@ var app = new Vue({
       return {
         items: items,
         fields: [
-          { key: 'ley', label: 'Ley De Timbre Fiscal', sortable: true },
+          { key: 'publicacaion', label: 'Publicación', sortable: true },
+          { key: 'articulo', label: 'Articulo', sortable: true },
+          { key: 'numeral', label: 'Numeral', sortable: false },
+          { key: 'literal', label: 'Literal', sortable: false },
           { key: 'acto', label: 'Acto', sortable: true, 'class': 'text-center' },
           { key: 'unidades', label: 'Unidades Tributarias', sortable: true }
         ],

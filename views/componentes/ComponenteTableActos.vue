@@ -41,7 +41,6 @@
              :sort-desc.sync="sortDesc"
              @filtered="onFiltered"
     >
-      <template slot="ley" slot-scope="row" >{{row.value.articulo+", "+row.value.numeral}}<div v-if="row.value.literal!='UNICO'">{{" ,Literal "+row.value.literal}}</div></template>
       <template slot="acto" slot-scope="row" >{{row.value.descripcion}}</template>
       <template slot="unidades" slot-scope="row" >{{row.value+" UT"}}</template>
       <template slot="row-details" slot-scope="row">

@@ -213,7 +213,7 @@
 </div>
 <transition name="fade" mode="in-out">
 <div  v-show="aceptado">
-<div is="ActosContribuyente" role="group" class=" form-row"  v-bind:contribuyente="itemAux"  v-bind:tipo="tipo" v-bind:items="actos"></div>
+<div is="ActosContribuyente" role="group" class=" form-row"  v-bind:contribuyente="itemAux"  v-bind:tipo="tipo" v-bind:items="actos"  v-bind:tipo2="tipo2"></div>
 <button v-show="aceptado" type="button"  v-on:click="regresar()" class="btn btn-secondary btn-auxRegistrar" style="height: 45px;float: right;">Atras</button>  
   
 </div>
