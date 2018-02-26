@@ -18,6 +18,17 @@
     tipo:'Personal'
   },
   {
+    id:"23806671",
+    nombre:"Leomar Alexander",
+    apellido:"Esparragoza Meneses",
+    estado:"Sucre",
+    municipio:"Montes",
+    parroquia:"Cumanacoa",
+    ubicacion:"Calle la Quinta, Casa Nro. 23",
+    nacionalidad:'Venezolano',
+    tipo:'Personal'
+  },
+  {
     id:"12345678",
     nombre:"Mikel",
     apellido:"Xass Miuld",
@@ -25,7 +36,7 @@
     municipio:"Sucre",
     parroquia:"Santa Ines",
     ubicacion:"Calle xxxx Apartamento xxx",
-    nacionalidad:'Extrangero',
+    nacionalidad:'Extranjero',
     tipo:'Personal'
   },
   {
@@ -415,7 +426,7 @@ var app = new Vue({
               return null;
           }
           if((this.selected.tipo!='Personal'&&this.formatoRif.test(this.id)) || (this.selected.tipo=='Personal'&&this.formatoCP.test(this.id))){
-            this.contribuyente=this.buscarC(this.selected);
+            this.contribuyente=this.buscarC(this.selected,this.selected2);
             $("#IDcontribuyente").hide(500);
             $("#IDcontribuyente").show(500); 
             this.ajaxActos();
@@ -459,7 +470,7 @@ var app = new Vue({
         },
     },
     methods:{
-        buscarC (selected) {
+        buscarC (selected,selected2) {
           var arreglo=[];
           var encontrado=false;
           alert("ajax buscar contribuyente");
@@ -467,11 +478,14 @@ var app = new Vue({
 
           this.contribuyentesVue=contribuyentes;
           this.contribuyentesVue = this.contribuyentesVue.filter(function (opcion) {
-                  if(this.selected.tipo=='Juridico')
+                  if(selected.tipo=='Juridico'){
                     return opcion.tipo!=selected.tipo ? false : true;
-                  else
+                  }
+                  else{
                     return (opcion.tipo!=selected.tipo&&opcion.nacionalidad!=selected2.tipo) ? false : true;
+                  }
               });
+
           console.log(this.contribuyentesVue);
           for (var i = 0; i<this.contribuyentesVue.length ; i++) {
             if(this.contribuyentesVue[i].id==this.id){
