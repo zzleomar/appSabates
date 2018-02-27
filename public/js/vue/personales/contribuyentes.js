@@ -4,13 +4,10 @@ var app = new Vue({
       return {
         items: items,
         fields: [
-          { key: 'publicacion', label: 'Publicación', sortable: true },
-          { key: 'articulo', label: 'Articulo', sortable: true },
-          { key: 'numeral', label: 'Numeral', sortable: false },
-          { key: 'literal', label: 'Literal', sortable: false },
-          { key: 'acto', label: 'Acto', sortable: true, 'class': 'text-center' },
-          { key: 'unidades', label: 'Unidades Tributarias', sortable: true },
-          { key: 'estado', label: 'Estado', sortable: true }
+          { key: 'tipo', label: 'Tipo', sortable: true },
+          { key: 'id', label: 'Identificador', sortable: true },
+          { key: 'contribuyente', label: 'Contribuyente', sortable: true },
+          { key: 'direccion', label: 'Dirección', sortable: true }
         ],
         currentPage: 1,
         perPage: 5,
@@ -19,6 +16,7 @@ var app = new Vue({
         sortBy: null,
         sortDesc: false,
         filter: null,
+        modalInfo: { title: '', content: '' }
       }
     },
     computed: {
@@ -30,8 +28,14 @@ var app = new Vue({
       }
     },
     methods: {
-      detalles (item, index, button) {
-        console.log(JSON.stringify(item, null, 2));
+      info (item, index, button) {
+        this.modalInfo.title = `Row index: ${index}`
+        this.modalInfo.content = JSON.stringify(item, null, 2)
+        this.$root.$emit('bv::show::modal', 'modalInfo', button)
+      },
+      resetModal () {
+        this.modalInfo.title = ''
+        this.modalInfo.content = ''
       },
       onFiltered (filteredItems) {
         // Trigger pagination to update the number of buttons/pages due to filtering

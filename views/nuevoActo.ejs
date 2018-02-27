@@ -9,7 +9,8 @@
         <h3 class="panel-title">Nueva Acto</h3>  
     </div>
     <div class="panel-body appViu"  id="app">
-      <div id="demo">
+      <transition name="fade2" mode="out-in" > 
+      <div id="demo" v-show="actoNuevo">
           <form>
             <div class="container">
                   <h6 style="text-align: right;">Gaceta Oficial</h6>
@@ -28,7 +29,7 @@
                         Gaceta donde se hace la publicación del nuevo acto.
                       </b-form-text>
                   </div>
-                  <div style="margin-right: 1rem"><small id="ButtonNuevaGaceta" style="line-height: 10; cursor: pointer;">nueva..</small></div>
+                  <div style="margin-right: 1rem"><small @click="nuevaGaceta1" style="line-height: 10; cursor: pointer;">nueva..</small></div>
                   <div role="group" class="col-ms-10 col-md-5">
                       <label for="tipo">Publicación:</label>
                       <b-form-select v-model="form.selected2" :options="options2" :state="PublicState"
@@ -41,7 +42,7 @@
                           Publicación donde se describe el acto.
                         </b-form-text>
                   </div>
-                  <div style="margin-right: 1rem"><small style="line-height: 10; cursor: pointer;">nueva..</small></div>
+                  <div style="margin-right: 1rem"><small style="line-height: 10; cursor: pointer;"  @click="nuevaPublicacion">nueva..</small></div>
                 </div>
                 <transition name="fade-button"> <button type="button" v-show="otro"  v-on:click="otroActo()" class="btn btn-outline-info btn-auxRegistrar" style="height: 45px;"><i class="fa fa-fw fa-plus"></i>Acto</button></transition><transition name="fade" mode="out-in"> 
               <div v-show="form.selected2!=null&&descripcionActo">
@@ -125,28 +126,6 @@
                         <b-form-text id="inputLiveHelp">
                           ingrese un número real de unidades tributarias
                         </b-form-text>
-                    </div><div class="col-ms-6 col-md-4">
-                      <b-form-group>
-                        <template slot="label">
-                          <b>Para contribuyentes:</b>
-                          <b-form-checkbox v-model="allSelected"
-                                           :indeterminate="indeterminate"
-                                           aria-describedby="flavours"
-                                           aria-controls="flavours"
-                                           @change="toggleAll"
-                           >
-                            {{ allSelected ? 'Especifico' : 'Seleccionar Todos' }}
-                           </b-form-checkbox>
-                        </template>
-                        <b-form-checkbox-group id="flavors"
-                                               stacked
-                                               v-model="selected"
-                                               name="flavs"
-                                               :options="flavours"
-                                               class="ml-4"
-                                               aria-label="Individual flavours"
-                        ></b-form-checkbox-group>
-                      </b-form-group>
                     </div>
                   </div>
                      
@@ -154,9 +133,27 @@
                 </div></div> </transition>
             </div>
       </form>
+  </div></transition>
+ <transition name="fade" mode="out-in" > 
+  <div v-show="gaceta" id="nuevaGacetaId">
+     <div is="NuevaGaceta"  v-bind:nuevaGaceta="gaceta"></div>
   </div>
+  </transition>
+  <transition name="fade" mode="out-in" > 
+  <div v-show="publicacion">
+     <div is="NuevaPublicacion"  v-bind:nuevaPublicacion="gaceta" v-bind:gacetas="gacetas"></div>
+  </div>
+  </transition>
   <div class="container" id="actosR"  v-show="items.length!=0">
     <% include componentes/ComponenteTableActos.vue %>
   </div>
+
+<script type="text/x-template" id="NuevaGaceta">
+       <% include componentes/ComponenteNuevaGaceta.vue %>
+</script>
+
+<script type="text/x-template" id="NuevaPublicacion">
+       <% include componentes/ComponenteNuevaPublicacion.vue %>
+</script>
 </div>       
   <script type="text/javascript" src="js/vue/personales/nuevaActo.js"></script>

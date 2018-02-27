@@ -1,19 +1,3 @@
-<!--<b-container class="col-12">
-    <b-ul  v-for="cuenta in items">
-    	<b-ul  v-for="rama in cuenta.ramas">
-		    	<b-ul  v-for="subrama in rama.subramas" >
-					<b-ul  v-for="especifico in subrama.especificos">
-    					<b-ul  v-for="subespecifico in especifico.subespecificos">
-							 <b-li class="col-3">{{ cuenta.id+"."+rama.id+"."+subrama.id+"."+especifico.id+"."+subespecifico.id }}</b-li>
-							 <b-li>{{ cuenta.descripcion+rama.descripcion+subrama.descripcion+especifico.descripcion+subespecifico.descripcion }}</b-li><br>
-						</b-ul>
-			    	</b-ul>
-		    	</b-ul>
-    	</b-ul>
-    </b-ul>
-</b-container>
--->
-
 
  <b-container fluid>
     <!-- User Interface controls -->
@@ -57,6 +41,8 @@
              :sort-desc.sync="sortDesc"
              @filtered="onFiltered"
     >
+      <template slot="contribuyente" slot-scope="row" >{{row.value.nombre}} <div v-if="row.value.apellido">{{row.value.apellido}}</div></template>
+      <template slot="direccion" slot-scope="row" >{{"Estado "+row.value.estado+" Municipio "+row.value.montes+", Parroquia "+row.value.parroquia+", "+row.value.direccion}}</template>
       
    </b-table>
       <b-col md="12" class="my-1">

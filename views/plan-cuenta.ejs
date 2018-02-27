@@ -1,8 +1,8 @@
 <ol class="breadcrumb">
       <li class="breadcrumb-item"><a id="opcInicio">Inicio</a></li>
-      <li class="breadcrumb-item active">Plan de Cuentas Presupuestarias</li>
+      <li class="breadcrumb-item active" id="PCPLI">Plan de Cuentas Presupuestarias</li>
     </ol>
-          <div class="page-content-wrap">
+          <div class="page-content-wrap" >
                           <div class="row">
                               <div class="col-md-12">
                                   <!-- START DATATABLE EXPORT -->
@@ -10,6 +10,7 @@
                                       <div class="panel-heading">
                                           <h3 class="panel-title">Cuentas Registradas</h3>
                                           <div class="navbar dropdown pull-right"">
+                                              <button type="button" class="btn btn-black" id="ButtonNuevaCuenta">Nuevo</button>
                                               <button class="btn btn-danger dropdown-toggle" id="dropdownDescargar" data-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true"><i class="fa fa-bars"></i> Descargar Cuentas Presupuestarias</button>
 
                                               <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownDescargar"> 
@@ -29,7 +30,7 @@
                     </div>
 
  <script type="text/javascript">
-  var items =[
+   /* var items =[
             {  id:"3",
               descripcion:"RECURSOS ",
               ramas:[
@@ -94,6 +95,7 @@
                   }]
                 }]
               }];
+  
               console.log(items);
           for (var i in items) {
             for (var j in items[i].ramas) {
@@ -119,31 +121,12 @@
                 }
               }
             }
-          }
-          var app = new Vue({
-              el: '#app',
-                data () {
-                  return {
-                    items: items,
-                    fields: [
-                      { key: 'gaceta', label: 'Gacetas', sortable: true },
-                      { key: 'acto', label: 'Acto', sortable: true, 'class': 'text-center' },
-                      { key: 'unidades', label: 'Unidades Tributarias', sortable: true }
-                    ],
-                    currentPage: 1,
-                    perPage: 5,
-                    totalRows: items.length,
-                    pageOptions: [ 5, 10, 15 ],
-                    sortBy: null,
-                    sortDesc: false,
-                    filter: null,
-                    modalInfo: { title: '', content: '' }
-                  }
-                }
-            });
-        
- </script>
- <script type="text/javascript">
+          }*/
+          var cuentas=[
+              {codigo:"3.01.03.33.00",rama:"Ingreso Ordinario",subrama:"Ingresos por tasas",especifico:"Estampillas fiscales",subespecificos:""},
+              {codigo:"3.01.03.34.00",rama:"Ingreso Ordinario",subrama:"Ingresos por tasas",especifico:"Papel sellado",subespecificos:""},
+              {codigo:"3.01.10.01.99",rama:"Ingreso Ordinario",subrama:"Ingresos de la propiedad",especifico:"Intereses por préstamos concedidos al sector privado",subespecificos:"Expendio de licohores"}
+            ];
            $(document).ready(function()
             {
                 $('#pdf').on('click', function(){
@@ -155,5 +138,6 @@
 
             });
 
-         </script>
+ </script>
+ <script type="text/javascript" src="../js/vue/personales/cuentas.js"></script>
          

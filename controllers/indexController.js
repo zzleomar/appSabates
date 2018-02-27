@@ -7,59 +7,70 @@ const index = (req,res) =>{
 
 const ventas = (req,res,next) => {
 	res.render('ventas', {
-		title: 'Lista de Productos'
+		title: ''
 	});
 }
 
 const actos = (req,res,next) => {
 	res.render('actos', {
-		title: 'Lista de Productos'
+		title: ''
 	});
 }
 
 const inicio = (req,res,next) => {
 	res.render('inicio', {
-		title: 'Lista de Productos'
+		title: ''
 	});
 }
 
 const gacetas = (req,res,next) => {
 	res.render('gacetas', {
-		title: 'Lista de Productos'
+		title: ''
 	});
 }
 
 const venta = (req,res,next) => {
 	res.render('venta', {
-		title: 'Lista de Productos'
+		title: ''
 	});
 }
 
 const nuevaGaceta = (req,res,next) => {
 	res.render('nuevaGaceta', {
-		title: 'Lista de Productos'
+		title: ''
 	});
 }
 
 const nuevoActo = (req,res,next) => {
 	res.render('nuevoActo', {
-		title: 'Lista de Productos'
+		title: ''
+	});
+}
+
+const nuevaCuenta = (req,res,next) => {
+	res.render('nuevaCuenta', {
+		title: ''
 	});
 }
 
 const PlanCuenta = (req,res,next) => {
 	res.render('plan-cuenta', {
-		title: 'Lista de Productos'
+		title: ''
 	});
 }
 
 const Usuario = (req,res,next) => {
 	res.render('usuario', {
-		title: 'Lista de Productos'
+		title: ''
+	});
+}
+const Contribuyentes = (req,res,next) => {
+	res.render('contribuyentes', {
+		title: ''
 	});
 }
 
 
 module.exports={
-	index, ventas,actos,inicio,gacetas,venta,nuevaGaceta,nuevoActo,PlanCuenta,Usuario
+	index, ventas,actos,inicio,gacetas,venta,nuevaGaceta,nuevoActo,PlanCuenta,Usuario,Contribuyentes,nuevaCuenta
 }

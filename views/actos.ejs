@@ -1,5 +1,5 @@
 
-    <ol class="breadcrumb">
+    <ol class="breadcrumb" id="menuBreadcrumb">
       <li class="breadcrumb-item"><a id="opcInicio">Inicio</a></li>
       <li class="breadcrumb-item active">Actos</li>
     </ol>
@@ -42,11 +42,11 @@
 
     <script type="text/javascript">
       var items = [
-          { acto: {id:"12", descripcion:"Carta de Buena Conducta"}, unidades: 12, publicacaion:"Ley de Timbre Fiscal", articulo:"Articulo "+"2",numeral:"Numeral "+"3",literal:"UNICO"},
-          { acto: {id: "21", descripcion: "Apostillado de Titulo de educación Superior"}, unidades: 32, publicacaion:"Reforma de la Ley de Timbre Fiscal", articulo:"Articulo "+"12",numeral:"Numeral "+"1",literal:"UNICO"},
-          { acto:{id:"1", descripcion:"Apostillado de Titulo de educación básica"}, unidades: 25, publicacaion:"Ley de Timbre Fiscal", articulo:"Articulo "+"24",numeral:"Numeral "+"4",literal:"a"},
-          { acto:{id:"54", descripcion:"Registro de una empresa mixta"}, unidades: 2, publicacaion:"Ley de Timbre Fiscal", articulo:"Articulo "+"24",numeral:"Numeral "+"4",literal:"b"},
-          { acto:{id:"2", descripcion:"Licencia de Licoreria"}, unidades: 10, publicacaion:"Reforma de la Ley de Timbre Fiscal", articulo:"Articulo "+"14",numeral:"Numeral "+"4",literal:"UNICO"}
+          { acto: {id:"12", descripcion:"Carta de Buena Conducta"}, unidades: 12, publicacion:"Ley de Timbre Fiscal", articulo:"Articulo "+"2",numeral:"Numeral "+"3",literal:"UNICO",estado:true},
+          { acto: {id: "21", descripcion: "Apostillado de Titulo de educación Superior"}, unidades: 32, publicacion:"Reforma de la Ley de Timbre Fiscal", articulo:"Articulo "+"12",numeral:"Numeral "+"1",literal:"UNICO",estado:true},
+          { acto:{id:"1", descripcion:"Apostillado de Titulo de educación básica"}, unidades: 25, publicacion:"Ley de Timbre Fiscal", articulo:"Articulo "+"24",numeral:"Numeral "+"4",literal:"a",estado:true},
+          { acto:{id:"54", descripcion:"Registro de una empresa mixta"}, unidades: 2, publicacion:"Ley de Timbre Fiscal", articulo:"Articulo "+"24",numeral:"Numeral "+"4",literal:"b",estado:true},
+          { acto:{id:"2", descripcion:"Licencia de Licoreria"}, unidades: 10, publicacion:"Reforma de la Ley de Timbre Fiscal", articulo:"Articulo "+"14",numeral:"Numeral "+"4",literal:"UNICO",estado:true}
       ];
           
             $(document).ready(function()

@@ -1,10 +1,10 @@
 
  var auxActo=[
-          { acto: {id:"12", descripcion:"Carta de Buena Conducta"}, unidades: 12, publicacaion:"Ley de Timbre Fiscal", articulo:"Articulo "+"2",numeral:"Numeral "+"3",literal:"UNICO"},
-          { acto: {id: "21", descripcion: "Apostillado de Titulo de educación Superior"}, unidades: 32, publicacaion:"Reforma de la Ley de Timbre Fiscal", articulo:"Articulo "+"12",numeral:"Numeral "+"1",literal:"UNICO"},
-          { acto:{id:"1", descripcion:"Apostillado de Titulo de educación básica"}, unidades: 25, publicacaion:"Ley de Timbre Fiscal", articulo:"Articulo "+"24",numeral:"Numeral "+"4",literal:"a"},
-          { acto:{id:"54", descripcion:"Registro de una empresa mixta"}, unidades: 2, publicacaion:"Ley de Timbre Fiscal", articulo:"Articulo "+"24",numeral:"Numeral "+"4",literal:"b"},
-          { acto:{id:"2", descripcion:"Licencia de Licoreria"}, unidades: 10, publicacaion:"Reforma de la Ley de Timbre Fiscal", articulo:"Articulo "+"14",numeral:"Numeral "+"4",literal:"UNICO"}
+          { acto: {id:"12", descripcion:"Carta de Buena Conducta"}, unidades: 12, publicacion:"Ley de Timbre Fiscal", articulo:"Articulo "+"2",numeral:"Numeral "+"3",literal:"UNICO"},
+          { acto: {id: "21", descripcion: "Apostillado de Titulo de educación Superior"}, unidades: 32, publicacion:"Reforma de la Ley de Timbre Fiscal", articulo:"Articulo "+"12",numeral:"Numeral "+"1",literal:"UNICO"},
+          { acto:{id:"1", descripcion:"Apostillado de Titulo de educación básica"}, unidades: 25, publicacion:"Ley de Timbre Fiscal", articulo:"Articulo "+"24",numeral:"Numeral "+"4",literal:"a"},
+          { acto:{id:"54", descripcion:"Registro de una empresa mixta"}, unidades: 2, publicacion:"Ley de Timbre Fiscal", articulo:"Articulo "+"24",numeral:"Numeral "+"4",literal:"b"},
+          { acto:{id:"2", descripcion:"Licencia de Licoreria"}, unidades: 10, publicacion:"Reforma de la Ley de Timbre Fiscal", articulo:"Articulo "+"14",numeral:"Numeral "+"4",literal:"UNICO"}
       ];
  var contribuyentes=[{
     id:"23806671",
@@ -47,7 +47,8 @@
     parroquia:"Altagracia",
     ubicacion:"Calle Mariño, edif Nro. 23",
     tlf_oficina:"0800-2565-456",
-    tipo:'Juridico'
+    tipo:'Juridico',
+    tipo_rif:"R-Venezolano"
  },
  {
     id:"J-1232567-1",
@@ -56,19 +57,20 @@
     municipio:"Montes",
     parroquia:"Cumanacoa",
     ubicacion:"Calle la Quinta, Casa Nro. 23",
-    tipo:'Juridico'
+    tipo:'Juridico',
+    tipo_rif:"Jurídico"
  },
  {
-    id:"V-1234567-1",
+    id:"P-1234567-1",
     nombre:"Mixta montes c.a",
     estado:"Sucre",
     municipio:"Sucre",
     parroquia:"Altagracia",
     ubicacion:"Sector xxxx, Calle xxxx",
-    tipo:'Juridico'
+    tipo:'Juridico',
+    tipo_rif:"Persona Natural"
  }
 ];
-
 
  Vue.component('ActosContribuyente',{
     template: "#ActosContribuyenteVue",
@@ -78,7 +80,7 @@
           items: auxActo,
           acto: null,
           fields: [
-          { key: 'publicacaion', label: 'Publicación', sortable: true },
+          { key: 'publicacion', label: 'Publicación', sortable: true },
           { key: 'articulo', label: 'Articulo', sortable: true },
           { key: 'numeral', label: 'Numeral', sortable: false },
           { key: 'literal', label: 'Literal', sortable: false },
@@ -411,7 +413,12 @@ var app = new Vue({
           { text: 'Comunal [C-]', value:{ tipo: 'Comunal', documento: 'Nro. Rif Del Consejo Comunal', text:'C-'}}
         ],
         contribuyente:null,
-        formatoRif: new RegExp("^([VEGPJC]{1})-([0-9]{6,8})-([0-9]{1})$"),
+        formatoRifV: new RegExp("^V-([0-9]{6,8})-([0-9]{1})$"),
+        formatoRifE: new RegExp("^E-([0-9]{6,8})-([0-9]{1})$"),
+        formatoRifG: new RegExp("^G-([0-9]{6,8})-([0-9]{1})$"),
+        formatoRifP: new RegExp("^P-([0-9]{6,8})-([0-9]{1})$"),
+        formatoRifJ: new RegExp("^J-([0-9]{6,8})-([0-9]{1})$"),
+        formatoRifC: new RegExp("^C-([0-9]{6,8})-([0-9]{1})$"),
         formatoRif2: new RegExp("^([VEGPJC]{1})-$"),
         formatoCP: new RegExp("^[0-9]{6,8}$"),
         ejem: "23806671",
@@ -421,16 +428,56 @@ var app = new Vue({
     },
     computed: {
       IdState (){
+        var aux=false;
           if(this.id == "" || this.formatoRif2.test(this.id)){
             $("#IDcontribuyente").hide(500);
               return null;
           }
-          if((this.selected.tipo!='Personal'&&this.formatoRif.test(this.id)) || (this.selected.tipo=='Personal'&&this.formatoCP.test(this.id))){
+          if(this.selected.tipo=='Personal'&&this.formatoCP.test(this.id)){
+            aux=true;
+          }
+          else{
+            if(this.selected.tipo!='Personal'){
+              switch(this.selected2.tipo){
+                case 'R-Venezolano':{
+                  if(this.formatoRifV.test(this.id))
+                    aux=true;
+                  break;
+                }
+                case 'R-Extranjero':{
+                  if(this.formatoRifE.test(this.id))
+                    aux=true;
+                  break;
+                }
+                case 'Persona Natural':{
+                  if(this.formatoRifP.test(this.id))
+                    aux=true;
+                  break;
+                }
+                case 'Gubernamental':{
+                  if(this.formatoRifG.test(this.id))
+                    aux=true;
+                  break;
+                }
+                case 'Jurídico':{
+                  if(this.formatoRifJ.test(this.id))
+                    aux=true;
+                  break;
+                }
+                case 'Comunal':{
+                  if(this.formatoRifC.test(this.id))
+                    aux=true;
+                  break;
+                }
+              }
+            }
+          }
+          if(aux){
             this.contribuyente=this.buscarC(this.selected,this.selected2);
             $("#IDcontribuyente").hide(500);
             $("#IDcontribuyente").show(500); 
             this.ajaxActos();
-            return true;       
+            return true;
           }
           else{
             $("#IDcontribuyente").hide(500);
@@ -479,7 +526,7 @@ var app = new Vue({
           this.contribuyentesVue=contribuyentes;
           this.contribuyentesVue = this.contribuyentesVue.filter(function (opcion) {
                   if(selected.tipo=='Juridico'){
-                    return opcion.tipo!=selected.tipo ? false : true;
+                    return (opcion.tipo!=selected.tipo||opcion.tipo_rif!=selected2.tipo) ? false : true;
                   }
                   else{
                     return (opcion.tipo!=selected.tipo&&opcion.nacionalidad!=selected2.tipo) ? false : true;

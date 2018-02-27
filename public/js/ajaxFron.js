@@ -40,6 +40,12 @@ $(document).ready(function(){
    $("#opcUsuario").click(function() {
     ajaxMain("usuario");
     });
+  $("#opcContribuyente").click(function() {
+    ajaxMain("contribuyente");
+    });
+  $("#opcNuevaCuenta").click(function() {
+    ajaxMain("nuevaCuenta");
+    });
 
 
 
@@ -60,6 +66,9 @@ $(document).ready(function(){
   });
   $('#ajaxMain').on('click', '#regresarVenta', function(){
     ajaxMain("venta");
+  });
+  $('#ajaxMain').on('click', '#ButtonNuevaCuenta', function(){
+    ajaxMain("nuevaCuenta");
   });
 
 });
@@ -110,8 +119,14 @@ function menu(url){
     case 'nuevoActo':
       $('#opcNuevoActo').addClass('active');
       break;
+      case 'nuevaCuenta':
+    $('#opcNuevaCuenta').addClass('active');
+      break;
     case 'usuario':
       $('#opcUsuario').addClass('active');
+      break;
+    case 'contribuyente':
+      $('#opcContribuyente').addClass('active');
       break;
 
     default:
@@ -135,6 +150,8 @@ function desmarcar(url){
 
     if(url!='venta')
       $('#opcVenta').removeClass('active');
+    if(url!='nuevaCuenta')
+      $('#opcNuevaCuenta').removeClass('active');
 
     if(url!='plan-cuenta')
       $('#opcPlanCuenta').removeClass('active');
@@ -145,6 +162,8 @@ function desmarcar(url){
       $('#opcNuevoActo').removeClass('active');
     if(url!='usuario')
       $('#opcUsuario').removeClass('active');
+    if(url!='contribuyente')
+      $('#opcContribuyente').removeClass('active');
 }
 
 function ubicacion(){
@@ -213,6 +232,14 @@ function ubicacion(){
       menu(url);
       break;
 
+    case 'nuevaCuenta':
+        $.get(url,function(data){ 
+            $('#ajaxMain').empty().html(data);
+          }); 
+      //Activar opción del menu
+      menu(url);
+      break;
+
     case 'nuevoActo':
         $.get(url,function(data){ 
             $('#ajaxMain').empty().html(data);
@@ -222,6 +249,14 @@ function ubicacion(){
       break;
 
     case 'usuario':
+        $.get(url,function(data){ 
+            $('#ajaxMain').empty().html(data);
+          }); 
+      //Activar opción del menu
+      menu(url);
+      break;
+      
+     case 'contribuyente':
         $.get(url,function(data){ 
             $('#ajaxMain').empty().html(data);
           }); 

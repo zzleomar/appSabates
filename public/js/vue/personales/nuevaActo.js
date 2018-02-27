@@ -1,18 +1,232 @@
 var items2 = [];
 
+var EventBus = new Vue;
 
+ Vue.component('NuevaPublicacion',{
+    template: "#NuevaPublicacion",
+    props:['nuevaPublicacion','gacetas'],
+        data (){
+            return {
+              form:{
+                selected:null,
+                Decrdescripcion:"",
+                selected2:null
+              },
+              options2:[
+              {
+                value: null, text: 'Seleccione la Publicación'
+              },
+              {
+                value: 'Ley', text: 'Ley'
+              },
+              {
+                value: 'Decreto', text: 'Decreto'
+              },
+              {
+                value: 'Acuerdo', text: 'Acuerdo'
+              },
+              {
+                value: 'Reglamentos', text: 'Reglamento'
+              },
+              {
+                value: 'Resolución', text: 'Resolución'
+              }],
+              options:[
+              {
+                value: null, text: 'Seleccione la gacete', publicaciones: null
+              }],
+            }
+        },
+        methods:{
+        onSubmit () {
+            console.log(this.form);
+            alert(JSON.stringify(this.form));
+            EventBus.$emit('regresar', false);
+            EventBus.$emit('nuevaPublicacion', false);
+          },
+        },
+        computed: {
+
+          TipoState(){
+            if(this.form.selected!=null)
+              return true;
+          },
+          DecrDescState(){
+            if(this.form.Decrdescripcion=='')
+              return null;
+              if(this.form.Decrdescripcion.length < 3) 
+                return false;
+            return true;
+          },
+          GacetaState(){ 
+          console.log(this.gacetas);  
+            if(this.options.length==1){
+              for(var i=0; i<this.gacetas.length; i++){
+                this.options.push({
+                  value: this.gacetas[i],
+                  text: this.gacetas[i].fecha+" "+this.gacetas[i].tipo+" #"+this.gacetas[i].numero,
+                  publicaciones: this.gacetas[i].publicaciones
+                });
+              }
+            }
+            if(this.form.selected!=null){
+              return true;
+            }
+          },
+          TipoPState(){
+            if(this.form.selected2!=null){
+              return true;
+            }
+            return null;
+          },
+        }
+  });
+
+ Vue.component('NuevaGaceta',{
+    template: "#NuevaGaceta",
+    props:['nuevaGaceta'],
+        data (){
+            return {
+              form: {
+                numero: '',
+                fecha: '',
+                tipoS: '',
+                selected: null,
+                selected2: [{value : null}],
+                contDecr: 0,
+                Decrdescripcion: []
+              },
+              cantidad: "",
+              options:[
+              {
+                value: null, text: 'Seleccione el tipo de gaceta'
+              },
+              {
+                value: 'Gaceta Ordinaria', text: 'Gaceta Ordinaria'
+              },
+              {
+                value: 'Gaceta Extraordinaria', text: 'Gaceta Extraordinaria'
+              }],
+              options2:[
+              {
+                value: null, text: 'Seleccione la Publicación'
+              },
+              {
+                value: 'Ley', text: 'Ley'
+              },
+              {
+                value: 'Decreto', text: 'Decreto'
+              },
+              {
+                value: 'Acuerdo', text: 'Acuerdo'
+              },
+              {
+                value: 'Reglamentos', text: 'Reglamento'
+              },
+              {
+                value: 'Resolución', text: 'Resolución'
+              }]
+        }},
+        methods:{
+          onSubmit () {
+            console.log(this.form);
+            alert(JSON.stringify(this.form));
+            EventBus.$emit('regresar', false);
+            EventBus.$emit('nuevaGaceta', false);
+          },
+            decretoNew(){
+              this.form.contDecr++;
+              this.form.selected2.push({value : null});
+            },
+            decretoRemove(){
+              if (this.form.contDecr>0)
+                this.form.contDecr--;
+            }
+        },
+        computed: {
+          DateState () {
+            if(this.form.fecha=="")
+              return null;
+            else{
+              var hoy = new Date();
+              var dd = hoy.getDate();
+              var mm = hoy.getMonth()+1; //hoy es 0!
+              var yyyy = hoy.getFullYear();
+              if(dd<10) {
+                  dd='0'+dd
+              } 
+              if(mm<10) {
+                  mm='0'+mm
+              } 
+              hoy = yyyy+'-'+mm+'-'+dd;
+              return this.form.fecha < hoy ? true : false;
+            }
+          },
+          NumeroState () {
+            if(this.form.numero=='')
+              return null;
+            else
+              return this.form.numero != '' ? true : false;
+          },
+          TipoState(){
+            if(this.form.selected!=null)
+              return true;
+          },
+          TipoPState(){
+            if((this.cantidad==0) && (this.form.selected2[0].value==null))
+              return null;
+            for(var i=0; i<this.cantidad; i++)
+              if(this.form.selected2[i].value == null) 
+                return false;
+            return true;
+          },
+          NDescState(){
+            if((this.cantidad==0)||(this.cantidad=="")){
+                return null;
+              }
+            else{
+              return this.cantidad > 0 ? true : false;
+            }
+          },
+          DecrDescState(){
+            if(this.cantidad==0 && !this.form.Decrdescripcion[0])
+              return null;
+            for(var i=0; i<this.cantidad; i++)
+              if(this.form.Decrdescripcion[i].length < 3) 
+                return false;
+            return true;
+          }
+        }
+    });
 
 var app = new Vue({
         el: '#app',
+        created: function(){
+          EventBus.$on('nuevaGaceta', function (event) {
+              this.gaceta=false;
+            }.bind(this));
+          EventBus.$on('nuevaPublicacion', function (event) {
+              this.publicacion=false;
+            }.bind(this));
+          EventBus.$on('regresar', function (event) {
+              this.actoNuevo=true;
+            }.bind(this));
+        },
         data (){
             return {
               //actos
               items: items2,
               fields: [
-                { key: 'ley', label: 'Ley De Timbre Fiscal', sortable: true },
+                { key: 'publicacion', label: 'Publicación', sortable: true },
+                { key: 'articulo', label: 'Articulo', sortable: true },
+                { key: 'numeral', label: 'Numeral', sortable: false },
+                { key: 'literal', label: 'Literal', sortable: false },
                 { key: 'acto', label: 'Acto', sortable: true, 'class': 'text-center' },
                 { key: 'unidades', label: 'Unidades Tributarias', sortable: true }
               ],
+              gaceta:false,
+              publicacion:false,
+              actoNuevo:true,
               currentPage: 1,
               perPage: 5,
               totalRows: items2.length,
@@ -32,11 +246,6 @@ var app = new Vue({
               },
               otro:false,
               descripcionActo:true,
-              //checkbox
-              flavours: ['Natural', 'Juridico', 'Firma Personal'],
-              selected: ['Natural', 'Juridico', 'Firma Personal'],
-              allSelected: true,
-              indeterminate: false,
 
               //gacetas prueba
               gacetas:[
@@ -89,9 +298,16 @@ var app = new Vue({
             this.form.unidades= "";
           },
           onSubmit () {
-            console.log(this.form);
             alert(JSON.stringify(this.form));
-            this.items.push({ acto: {id:"12", descripcion:this.form.descripcion}, unidades: this.form.unidades, ley:{articulo:"Articulo "+this.form.articulo,numeral:"Numeral "+this.form.numeral,literal:"UNICO"}});
+            var Auxpublicacacion;
+            for(var i=0; i<this.gacetas.length; i++){
+              for(var j=0; j<this.gacetas[i].publicaciones.length; j++){
+                if(this.gacetas[i].publicaciones[j].id==this.form.selected2){
+                  Auxpublicacacion=this.gacetas[i].publicaciones[j].tipo+" "+this.gacetas[i].publicaciones[j].descripcion;
+                }
+              }
+            }
+            this.items.push({ acto: {id:"12", descripcion:this.form.descripcion}, unidades: this.form.unidades, publicacion: Auxpublicacacion, articulo:"Articulo "+this.form.articulo,numeral:"Numeral "+this.form.numeral,literal:"UNICO"});
             this.descripcionActo=false;
             this.otro=true;
           },
@@ -100,7 +316,6 @@ var app = new Vue({
                  this.form.literal="";
             },
             methoLiteralblur(){
-              alert(this.form.literal);
               if(this.form.literal=="")
                 this.form.literal="unico";
             },
@@ -120,22 +335,19 @@ var app = new Vue({
               // Trigger pagination to update the number of buttons/pages due to filtering
               this.totalRows = filteredItems.length
               this.currentPage = 1
-            }
-        },
-        watch: {
-          selected (newVal, oldVal) {
-            // Handle changes in individual flavour checkboxes
-            if (newVal.length === 0) {
-              this.indeterminate = false
-              this.allSelected = false
-            } else if (newVal.length === this.flavours.length) {
-              this.indeterminate = false
-              this.allSelected = true
-            } else {
-              this.indeterminate = true
-              this.allSelected = false
-            }
-          }
+            },
+            nuevaGaceta1(){
+              this.gaceta= true;
+              this.actoNuevo=false;
+            },
+            nuevaPublicacion(){
+              this.publicacion= true;
+              this.actoNuevo=false;
+            },
+            
+            detalles (item, index, button) {
+              console.log(JSON.stringify(item, null, 2));
+            },
         },
         computed:{
           DescState () {

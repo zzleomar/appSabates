@@ -1,16 +1,23 @@
 
  <b-container fluid>
-<div v-if="contribuyente!=null">
-  <div v-if="tipo=='Personal'" class="col-12">
-    <div>Contribuyente: <strong>{{contribuyente.apellido+" "+contribuyente.nombre}}</strong></div>
-    <div v-if="tipo2=='Venezolano'">Nro. De Cédula: <strong>{{contribuyente.id}}</strong></div>
-    <div v-else>Nro. De Pasaporte: <strong>{{contribuyente.id}}</strong></div>
+
+<div class="container">
+  <div class="row justify-content-between">
+    <div class="col-4">
+    </div>
+    <div v-if="contribuyente!=null" class="row justify-content-end">
+  <div v-if="tipo=='Personal'" class="col-12 justify-content-end">
+    <div v-if="tipo2=='Venezolano'"> <label class="labelperso" style="font-weight:600">Nro. De Cédula: </label> <strong>{{contribuyente.id}}</strong></div>
+    <div v-else> <label class="labelperso" style="font-weight:600"> Nro. De Pasaporte: </label> <strong>{{contribuyente.id}}</strong></div>
+    <div><label class="labelperso" style="font-weight:600">Contribuyente: </label> <strong>{{contribuyente.apellido+" "+contribuyente.nombre}}</strong></div>
   </div>
-  <div v-else class="col-12">
-        <div>Contribuyente: <strong>{{contribuyente.nombre}}</strong></div>
-        <div>Rif: <strong>{{contribuyente.id}}</strong></div>
+  <div v-else class="col-12 justify-content-end">
+        <div> <label class="labelperso" style="font-weight:600">Rif: </label>  <strong>{{contribuyente.id}}</strong></div>
+        <div> <label class="labelperso" style="font-weight:600">Contribuyente: </label> <strong>{{contribuyente.nombre}}</strong></div>
   </div>
   
+</div>
+  </div>
 </div>
 <br>
 <div class="col-12"><h4>Seleccione el acto</h4></div>

@@ -46,6 +46,7 @@ var app = new Vue({
           onSubmit () {
             console.log(this.form);
             alert(JSON.stringify(this.form));
+            ajaxMain("gacetas");
           },
             decretoNew(){
               this.form.contDecr++;

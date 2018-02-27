@@ -40,15 +40,13 @@
              :sort-by.sync="sortBy"
              :sort-desc.sync="sortDesc"
              @filtered="onFiltered"
+             @row-clicked="detalles"
     >
       <template slot="acto" slot-scope="row" >{{row.value.descripcion}}</template>
       <template slot="unidades" slot-scope="row" >{{row.value+" UT"}}</template>
-      <template slot="row-details" slot-scope="row">
-        <b-card>
-          <ul>
-            <li v-for="(value, key) in row.item" :key="key">{{ key }}: {{ value}}</li>
-          </ul>
-        </b-card>
+      <template slot="estado" slot-scope="row">
+        <div v-if="row.value">Habilitado</div>
+        <div v-else>Deshabilitado</div>
       </template>
    </b-table>
       <b-col md="12" class="my-1">
