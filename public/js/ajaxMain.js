@@ -47,6 +47,19 @@ $(document).ready(function(){
     ajaxMain("nuevaCuenta");
     });
 
+  $("#opcRama").click(function() {
+    ajaxMain("rama");
+    });
+   $("#opcSubrama").click(function() {
+    ajaxMain("subrama");
+    });
+  $("#opcEspecifico").click(function() {
+    ajaxMain("especifico");
+    });
+  $("#opcSubespecifico").click(function() {
+    ajaxMain("subespecifico");
+    });
+
 
 
 
@@ -69,6 +82,9 @@ $(document).ready(function(){
   });
   $('#ajaxMain').on('click', '#ButtonNuevaCuenta', function(){
     ajaxMain("nuevaCuenta");
+  });
+  $('#ajaxMain').on('click', '#opcPlanCuenta', function(){
+    ajaxMain("plan-cuenta");
   });
 
 });
@@ -120,7 +136,7 @@ function menu(url){
       $('#opcNuevoActo').addClass('active');
       break;
       case 'nuevaCuenta':
-    $('#opcNuevaCuenta').addClass('active');
+      $('#opcNuevaCuenta').addClass('active');
       break;
     case 'usuario':
       $('#opcUsuario').addClass('active');
@@ -128,6 +144,24 @@ function menu(url){
     case 'contribuyente':
       $('#opcContribuyente').addClass('active');
       break;
+
+    case 'rama':
+      $('#opcPlanCuenta').addClass('active');
+      $('#opcRama').addClass('active');
+    break;
+    case 'subrama':
+      $('#opcPlanCuenta').addClass('active');
+      $('#opcSubrama').addClass('active');
+      break;
+    case 'especifico':
+      $('#opcPlanCuenta').addClass('active');
+      $('#opcEspecifico').addClass('active');
+      break;
+    case 'subespecifico':
+      $('#opcPlanCuenta').addClass('active');
+      $('#opcSubespecifico').addClass('active');
+      break;
+
 
     default:
      // alert(url);
@@ -164,6 +198,15 @@ function desmarcar(url){
       $('#opcUsuario').removeClass('active');
     if(url!='contribuyente')
       $('#opcContribuyente').removeClass('active');
+
+    if(url!='rama')
+      $('#opcRama').removeClass('active');
+    if(url!='subrama')
+      $('#opcSubrama').removeClass('active');
+    if(url!='especifico')
+      $('#opcEspecifico').removeClass('active');
+    if(url!='subespecifico')
+      $('#opcSubespecifico').removeClass('active');
 }
 
 function ubicacion(){
@@ -260,6 +303,37 @@ function ubicacion(){
         $.get(url,function(data){ 
             $('#ajaxMain').empty().html(data);
           }); 
+
+
+      case 'rama':
+        $.get(url,function(data){ 
+            $('#ajaxMain').empty().html(data);
+          }); 
+      //Activar opción del menu
+      menu(url);
+      break;
+
+    case 'subrama':
+        $.get(url,function(data){ 
+            $('#ajaxMain').empty().html(data);
+          }); 
+      //Activar opción del menu
+      menu(url);
+      break;
+
+    case 'especifico':
+        $.get(url,function(data){ 
+            $('#ajaxMain').empty().html(data);
+          }); 
+      //Activar opción del menu
+      menu(url);
+      break;
+      
+     case 'subespecifico':
+        $.get(url,function(data){ 
+            $('#ajaxMain').empty().html(data);
+          }); 
+
       //Activar opción del menu
       menu(url);
       break;

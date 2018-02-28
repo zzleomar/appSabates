@@ -71,6 +71,30 @@ const Contribuyentes = (req,res,next) => {
 }
 
 
+const Rama = (req,res,next) => {
+	res.render('ramas', {
+		title: ''
+	});
+}
+
+const Subrama = (req,res,next) => {
+	res.render('subramas', {
+		title: ''
+	});
+}
+
+const Especifico = (req,res,next) => {
+	res.render('especificos', {
+		title: ''
+	});
+}
+const Subespecifico = (req,res,next) => {
+	res.render('subespecificos', {
+		title: ''
+	});
+}
+
+
 module.exports={
-	index, ventas,actos,inicio,gacetas,venta,nuevaGaceta,nuevoActo,PlanCuenta,Usuario,Contribuyentes,nuevaCuenta
+	index, ventas,actos,inicio,gacetas,venta,nuevaGaceta,nuevoActo,PlanCuenta,Usuario,Contribuyentes,nuevaCuenta,Rama,Subrama,Especifico,Subespecifico
 }

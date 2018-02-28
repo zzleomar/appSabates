@@ -246,6 +246,7 @@ var app = new Vue({
               },
               otro:false,
               descripcionActo:true,
+              acto:null,
 
               //gacetas prueba
               gacetas:[

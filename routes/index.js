@@ -17,6 +17,11 @@ router.get('/plan-cuenta', IndexController.PlanCuenta);
 router.get('/usuario', IndexController.Usuario);
 router.get('/contribuyente', IndexController.Contribuyentes);
 
+router.get('/rama', IndexController.Rama);
+router.get('/subrama', IndexController.Subrama);
+router.get('/especifico', IndexController.Especifico);
+router.get('/subespecifico', IndexController.Subespecifico);
+
 
 
 router.get('*', (req,res,next) =>{

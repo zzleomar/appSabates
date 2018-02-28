@@ -1,5 +1,3 @@
- <transition name="fade2" mode="out-in" >
-  <div v-show="acto==null">
  <b-container fluid>
     <!-- User Interface controls -->
     <b-row class="t-margenTop">
@@ -41,15 +39,12 @@
              :sort-by.sync="sortBy"
              :sort-desc.sync="sortDesc"
              @filtered="onFiltered"
-             @row-clicked="detalles"
-             tbody-tr-class="cursor"
     >
-      <template slot="acto" slot-scope="row" >{{row.value.descripcion}}</template>
-      <template slot="unidades" slot-scope="row" >{{row.value+" UT"}}</template>
-      <template slot="estado" slot-scope="row">
-        <div v-if="row.value">Habilitado</div>
-        <div v-else>Deshabilitado</div>
-      </template>
+      <template slot="rama" slot-scope="row">{{row.value.descripcion}}</template>
+      <template slot="subrama" slot-scope="row">{{row.value.descripcion}}</template>
+      <template slot="especifico" slot-scope="row">{{row.value.descripcion}}</template>
+      <template slot="subespecifico" slot-scope="row">{{row.value.descripcion}}</template>
+      
    </b-table>
       <b-col md="12" class="my-1">
         <b-pagination :total-rows="totalRows" :per-page="perPage" v-model="currentPage" class="my-0" align="right" />
@@ -57,13 +52,3 @@
   
 
   </b-container>
-</div>
-</transition>
- <transition name="fade" mode="out-in" >
-<div v-show="acto!=null">
-  <div is="VerActo" v-bind:acto="acto"></div>
-</div>
-</transition>
-<script type="text/x-template" id="VerActo">
-       <% include ./ComponenteVerActo.vue %>
-</script>

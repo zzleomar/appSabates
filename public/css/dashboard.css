@@ -50,11 +50,20 @@ header.header.sticky-top{
     background: rgba(0, 0, 0, 0.36);
 }	
 
-.flex-column li.nav-item:not(.active):hover {
+.flex-column li.nav-item:not(.active):hover,a.dropdown-item:not(.active):hover{
     background:  #61bc8c6e;
     cursor: pointer;
 }
-li.nav-item>.nav-link.active {
+.dropdown-menu{
+    margin-top: 0px;
+    padding-bottom: 0px;
+    padding-top: 0px;
+    border-top-width: 0px;
+    border-bottom-width: 0px;
+    border-right-width: 0px;
+    border-left-width: 0px;
+}
+li.nav-item>.nav-link.active,a.dropdown-item.active {
     background: #61bc8c;
     color: #000;
     font-weight: 800;
@@ -367,12 +376,23 @@ label.btn.btn-secondary.active {
     margin-bottom: auto;
     margin-top: auto;
 }
+button.btn.dropdown-toggle.dropdown-toggle-split{
+    position: absolute;
+    right: 0;
+    background: #0000;
+}
+
+
 .fade2-enter-active {
   transition: all .8s cubic-bezier(.2, 0.3, 0.4, .4);
 }
 .fade2-leave-active {
   transition: all 0.1s cubic-bezier(.3, 0.2, 0.2, .3);
 }
+
+
+
+
 .fade2-enter, .fade2-leave-to {
   transform: translateX(10px);
   opacity: 0;
@@ -404,4 +424,12 @@ label.btn.btn-secondary.active {
 .labelperso{
     font-size: 1rem;
     font-weight: 600;
+}
+
+tr.cursor {
+    cursor: pointer;
+}
+
+.fade-leave-active,.fade-leave,.fade-leave-to{
+    display: none;
 }
