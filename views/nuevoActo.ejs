@@ -48,7 +48,7 @@
               <div v-show="form.selected2!=null&&descripcionActo">
 <hr>
                 
-                <h6 style="text-align: right;">Descricción en la ley de Timbre Fiscal</h6>
+                <h6 style="text-align: right;">Descricción Del nuevo acto en la ley de Timbre Fiscal</h6>
                 <div class="form-row" >
                   
                   <div role="group" class="col-md-4" id="articulo">
@@ -129,7 +129,9 @@
                     </div>
                   </div>
                      
-                  <button type="button"  v-on:click="onSubmit()" class="btn btn-primary btn-auxRegistrar" style="height: 45px;">Registrar</button>
+                  <button type="button"  v-on:click="onSubmit()" class="btn btn-primary btn-auxRegistrar" style="height: 45px;" v-show="!editar">Registrar</button>
+                  <button type="button"  v-on:click="edit()" class="btn btn-success btn-auxRegistrar" style="height: 45px;" v-show="editar">Editar</button>
+                  <button type="button"  v-on:click="deleteActo()" class="btn btn-danger btn-auxRegistrar" style="height: 45px;" v-show="eliminar">Eliminar</button>
                 </div></div> </transition>
             </div>
       </form>
@@ -145,6 +147,7 @@
   </div>
   </transition>
   <div class="container" id="actosR"  v-show="items.length!=0">
+    <br><hr><h6 style="text-align: center;">ACTOS REGISTRADOS</h6>
     <% include componentes/ComponenteTableActos.vue %>
   </div>
 

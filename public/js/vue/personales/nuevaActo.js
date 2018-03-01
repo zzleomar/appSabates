@@ -236,6 +236,7 @@ var app = new Vue({
               filter: null,
               //formulario
               form: {
+                id:null,
                 descripcion: '',
                 articulo: '',
                 numeral: '',
@@ -247,6 +248,8 @@ var app = new Vue({
               otro:false,
               descripcionActo:true,
               acto:null,
+              editar:false,
+              eliminar:false,
 
               //gacetas prueba
               gacetas:[
@@ -286,7 +289,10 @@ var app = new Vue({
               {
                 value: null, text: 'Seleccione la publicación'
               }],
-              helpArticulo: ""
+              helpArticulo: "",
+              //pruebas
+              contador:0,
+              nuevo:false,
         }},
         methods:{
           otroActo(){
@@ -297,9 +303,9 @@ var app = new Vue({
             this.form.literal= "UNICO";
             this.form.descripcion= "";
             this.form.unidades= "";
+            this.form.id= null;
           },
           onSubmit () {
-            alert(JSON.stringify(this.form));
             var Auxpublicacacion;
             for(var i=0; i<this.gacetas.length; i++){
               for(var j=0; j<this.gacetas[i].publicaciones.length; j++){
@@ -308,9 +314,12 @@ var app = new Vue({
                 }
               }
             }
-            this.items.push({ acto: {id:"12", descripcion:this.form.descripcion}, unidades: this.form.unidades, publicacion: Auxpublicacacion, articulo:"Articulo "+this.form.articulo,numeral:"Numeral "+this.form.numeral,literal:"UNICO"});
+            this.contador++;
+
+            this.items.push({ acto: {id:this.contador, descripcion:this.form.descripcion}, unidades: this.form.unidades, publicacion: Auxpublicacacion, articulo:this.form.articulo,numeral:this.form.numeral,literal:"UNICO"});
             this.descripcionActo=false;
             this.otro=true;
+              console.log(JSON.stringify(this.items, null, 2));
           },
             methoLiteral(){
               if(this.form.literal=="unico")
@@ -322,11 +331,6 @@ var app = new Vue({
             },
             toggleAll (checked) {
               this.selected = checked ? this.flavours.slice() : []
-            },
-            info (item, index, button) {
-              this.modalInfo.title = `Row index: ${index}`
-              this.modalInfo.content = JSON.stringify(item, null, 2)
-              this.$root.$emit('bv::show::modal', 'modalInfo', button)
             },
             resetModal () {
               this.modalInfo.title = ''
@@ -347,8 +351,74 @@ var app = new Vue({
             },
             
             detalles (item, index, button) {
-              console.log(JSON.stringify(item, null, 2));
+              this.descripcionActo=true;
+            this.otro=!this.otro;
+            this.form.articulo= "";
+            this.form.numeral= "";
+            this.form.literal= "UNICO";
+            this.form.descripcion= "";
+            this.form.unidades= "";
+            this.form.id= null;
+              this.form.descripcion=item.acto.descripcion;
+              this.form.articulo=item.articulo;
+              this.form.numeral=item.numeral;
+              this.form.literal=item.literal;
+              this.form.unidades=item.unidades;
+              this.form.id=item.acto.id;
+              this.editar=true;
+              this.eliminar=true;
+
+              $("#unidades").show(500);
+              $("#literal").show(500);
+
             },
+            inicializar(){
+              this.form.articulo= "";
+              this.form.numeral= "";
+              this.form.literal= "UNICO";
+              this.form.descripcion= "";
+              this.form.unidades= "";
+              this.form.id= null;
+              this.editar=false;
+              this.eliminar=false;
+            },
+            edit(){
+              for (var i = 0; i<this.items.length;  i++) {
+                if(this.items[i].acto.id==this.form.id){
+                  this.items[i].acto.descripcion=this.form.descripcion;
+                  this.items[i].articulo=this.form.articulo;
+                  this.items[i].numeral=this.form.numeral;
+                  this.items[i].literal=this.form.literal;
+                  this.items[i].unidades=this.form.unidades;
+                }
+              }
+              this.inicializar();
+            this.otro=!this.otro;
+              $("#unidades").hide(500);
+              $("#numeral").hide(500);
+              $("#literal").hide(500);
+              this.descripcionActo=false;
+                this.eliminar=false;
+                this.editar=false;
+              alert("Acto Modificado");
+            },
+            deleteActo(){
+              for (var i = 0; i<this.items.length;  i++) {
+                if(this.items[i].acto.id==this.form.id){
+                    this.items.splice(i, 1);
+                }
+              }
+            this.otro=!this.otro;
+              this.inicializar();
+              $("#unidades").hide(500);
+              this.descripcionActo=false;
+              $("#numeral").hide(500);
+              $("#literal").hide(500);
+
+              this.eliminar=false;
+                this.editar=false;
+              alert("Acto Eliminado");
+            }
         },
         computed:{
           DescState () {
@@ -430,6 +500,7 @@ var app = new Vue({
               this.form.selected2=null;
               return true;
             }
+            this.inicializar();
           },
           PublicState(){
             if(this.form.selected2!=null){
@@ -439,8 +510,34 @@ var app = new Vue({
                   }
               }
                $("#articulo").show(500);
+               var Auxpublicacacion;
+                this.inicializar();
+                  for(var i=0; i<this.gacetas.length; i++){
+                    for(var j=0; j<this.gacetas[i].publicaciones.length; j++){
+                      if(this.gacetas[i].publicaciones[j].id==this.form.selected2){
+                        Auxpublicacacion=this.gacetas[i].publicaciones[j].tipo+" "+this.gacetas[i].publicaciones[j].descripcion;
+                      }
+                    }
+                  }
+                  $("#unidades").hide(500);
+                  $("#numeral").hide(500);
+                  $("#literal").hide(500);
+
+                  //pruebas
+                  alert("ajax actos de una publicación");
+                  if(!this.nuevo){
+                    this.items=null;
+                    this.items=[];
+                    this.items.push({ acto: {id:99, descripcion:"acto xxxx"}, unidades: "0.2", publicacion: Auxpublicacacion, articulo:"2",numeral:"3",literal:"UNICO"});
+                    this.nuevo=true;
+                  }//
+
+                  
               return true;
             }
+            this.items=null;
+            this.items=[];
+            this.inicializar();
             $("#articulo").hide(500);
           },
           sortOptions () {
